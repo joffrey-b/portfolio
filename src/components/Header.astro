@@ -1,0 +1,62 @@
+---
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+const isFr = lang === 'fr';
+const base = import.meta.env.BASE_URL;
+
+const navLinks = isFr
+  ? [
+      { href: `${base}fr/`, label: 'Accueil', home: true },
+      { href: `${base}fr/infrastructure`, label: 'Infrastructure', home: false },
+      { href: `${base}fr/roles`, label: 'Rôles', home: false },
+      { href: `${base}fr/about`, label: 'À propos', home: false },
+    ]
+  : [
+      { href: base, label: 'Home', home: true },
+      { href: `${base}infrastructure`, label: 'Infrastructure', home: false },
+      { href: `${base}roles`, label: 'Roles', home: false },
+      { href: `${base}about`, label: 'About', home: false },
+    ];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 border-b border-slate-800 bg-slate-900/80 backdrop-blur-sm">
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <a
+      href={isFr ? `${base}fr/` : base}
+      class="flex items-center gap-2 font-semibold text-slate-100 hover:text-sky-400 transition-colors"
+    >
+      <span class="text-sky-400 font-mono text-sm">~/</span>
+      <span>Homelab Portfolio</span>
+    </a>
+    <ul class="flex items-center gap-1">
+      {
+        navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class:list={[
+                'px-3 py-2 rounded-md text-sm font-medium transition-colors',
+                currentPath === link.href ||
+                (!link.home && currentPath.startsWith(link.href))
+                  ? 'bg-sky-500/10 text-sky-400'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800',
+              ]}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <LanguageSwitcher />
+      </li>
+    </ul>
+  </nav>
+</header>

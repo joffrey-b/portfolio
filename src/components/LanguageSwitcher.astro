@@ -1,0 +1,23 @@
+---
+const currentPath = Astro.url.pathname;
+const isFrench = currentPath.startsWith('/fr/') || currentPath === '/fr';
+
+let alternatePath: string;
+if (isFrench) {
+  alternatePath = currentPath.slice(3) || '/';
+} else {
+  alternatePath = '/fr' + currentPath;
+}
+
+const flag = isFrench ? '🇬🇧' : '🇫🇷';
+const tooltip = isFrench ? 'Switch to English' : 'Passer en français';
+---
+
+<a
+  href={alternatePath}
+  title={tooltip}
+  aria-label={tooltip}
+  class="px-3 py-2 rounded-md text-lg transition-colors text-slate-400 hover:text-slate-200 hover:bg-slate-800 leading-none"
+>
+  {flag}
+</a>

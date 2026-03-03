@@ -1,0 +1,378 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const hardware = [
+  {
+    name: 'OPNsense Firewall',
+    model: 'Asus Desktop',
+    specs: [
+      'Intel Core i5-4570S @ 2.90GHz',
+      '16GB DDR3 RAM',
+      '128GB SSD',
+      '2× Intel I350-T4 (WAN + per-VLAN)',
+    ],
+    description:
+      'Core of the network. Handles all inter-VLAN routing, firewall rules, Kea DHCP, Unbound DNS, and WireGuard VPN. Fully managed via REST API with Ansible.',
+  },
+  {
+    name: 'Proxmox VE Hypervisor',
+    model: 'HP Z440',
+    specs: [
+      'Intel Xeon E5-2698v3 @ 2.30GHz',
+      '128GB DDR4 RAM',
+      '1TB PNY SSD (VM storage)',
+      '6TB + 3TB Seagate HDD',
+      '1× Intel I350-T4',
+    ],
+    description:
+      'Main server running 10+ VMs: monitoring stack, logging, Docker services, ZoneMinder, OpenMediaVault, a Windows 11 gaming VM with PCI passthrough, a Linux Mint dev VM, and test servers.',
+  },
+  {
+    name: 'Proxmox Backup Server',
+    model: 'HP EliteDesk 800 G2',
+    specs: [
+      'Intel Xeon E3-1245v3',
+      '16GB DDR3 RAM',
+      'Integrated NIC',
+    ],
+    description:
+      'Dedicated backup host running Proxmox Backup Server. Encrypted backups of important VMs run every night.',
+  },
+  {
+    name: 'Primary NAS',
+    model: 'Synology DS418',
+    specs: [
+      '4× 3TB Seagate Ironwolf',
+      '12TB raw storage',
+      'Encrypted volumes',
+    ],
+    description:
+      'Primary backup target. Uses Synology SHR Raid and encrypted folders. Receives Proxmox backups every two nights.',
+  },
+  {
+    name: 'Switch',
+    model: 'Zyxel GS1900-24E',
+    specs: ['24-port managed Gigabit', 'VLAN-aware (802.1Q)'],
+    description:
+      'Managed switch handling all traffic. Configured for handling VLAN tagged and untagged traffic.',
+  },
+  {
+    name: 'WiFi Access Point',
+    model: 'Zyxel NWA50AX',
+    specs: ['WiFi 6 (802.11ax)', 'Multi-SSID with VLAN tagging'],
+    description:
+      'Access point serving separate SSIDs for trusted devices, guest WiFi, and CCTV — each tagged to their respective isolated VLAN.',
+  },
+];
+
+const servers = [
+  {
+    name: 'Firewall',
+    role: 'OPNsense',
+    icon: 'M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z',
+    description:
+      'BSD-based firewall with REST API management, multi-VLAN routing, Kea DHCP, Unbound DNS, and firewall rules automation.',
+  },
+  {
+    name: 'Hypervisor',
+    role: 'Proxmox',
+    icon: 'M6 6.878V6a2.25 2.25 0 0 1 2.25-2.25h7.5A2.25 2.25 0 0 1 18 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 0 0 4.5 9v.878m13.5-3A2.25 2.25 0 0 1 19.5 9v.878m0 0a2.246 2.246 0 0 0-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0 1 21 12v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6c0-.98.626-1.813 1.5-2.122',
+    description: 'KVM/LXC hypervisor hosting most of the infrastructure as virtual machines.',
+  },
+  {
+    name: 'Backup Server',
+    role: 'Proxmox BS',
+    icon: 'M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z',
+    description: 'Dedicated Proxmox Backup Server running nightly encrypted backups of important VMs.',
+  },
+  {
+    name: 'Metrics',
+    role: 'Grafana + InfluxDB',
+    icon: 'M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z',
+    description:
+      'Time-series metrics visualization (Grafana) and storage (InfluxDB), with Telegraf agents on all hosts and via SNMP for Synology.',
+  },
+  {
+    name: 'Logging',
+    role: 'Graylog + OpenSearch',
+    icon: 'M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z',
+    description:
+      'Centralized log aggregation split across two VMs: a Graylog main node and a dedicated OpenSearch data node storing logs on a separate disk. All hosts forward syslog via rsyslog.',
+  },
+  {
+    name: 'Monitoring',
+    role: 'Centreon',
+    icon: 'M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5',
+    description:
+      'Service and performance monitoring platform with SNMP-based checks. Mail alerts are sent via Postfix.',
+  },
+  {
+    name: 'Docker Host',
+    role: 'Redhat',
+    icon: 'M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9',
+    description:
+      'RedHat VM running 15+ containerized services behind Nginx Proxy Manager with individual SSL certificates. Accessible only from within the network.',
+  },
+  {
+    name: 'NVR',
+    role: 'ZoneMinder',
+    icon: 'M15.75 10.5l4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z',
+    description:
+      'Network video recorder managing IP security cameras on an isolated CCTV VLAN.',
+  },
+  {
+    name: 'NAS — Primary',
+    role: 'Synology',
+    icon: 'M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125',
+    description: 'Primary backup target. Receives automated backups of Proxmox VMs, Docker data, and more.',
+  },
+  {
+    name: 'NAS — Secondary',
+    role: 'OpenMediaVault',
+    icon: 'M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125',
+    description:
+      'Secondary backup target running as a Proxmox VM, providing redundant storage for all critical data.',
+  },
+];
+
+const practices = [
+  {
+    title: 'Everything as Code',
+    icon: 'M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5',
+    desc: 'All infrastructure configuration managed via Ansible with idempotent, version-controlled roles. Changes are previewed with --check before applying.',
+  },
+  {
+    title: 'Dual Backup Strategy',
+    icon: 'M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z',
+    desc: 'Critical services backed up to both a Synology NAS and a Proxmox-hosted OpenMediaVault VM. Backups are automated and scheduled.',
+  },
+  {
+    title: 'Network Isolation',
+    icon: 'M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z',
+    desc: 'VLANs are isolated from each other, except for specifically allowed traffic. Firewall rules enforced via OPNsense with automated, idempotent rule deployment.',
+  },
+  {
+    title: 'Full Observability',
+    icon: 'M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178ZM15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z',
+    desc: 'Grafana dashboards for metrics, Graylog for centralized logs, Centreon for service checks — every host is monitored.',
+  },
+];
+---
+
+<Layout
+  title="Infrastructure"
+  description="Homelab infrastructure overview: networking, servers, and services"
+>
+  <Header />
+  <main class="flex-1 py-12 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-10">
+        <h1 class="text-3xl font-bold text-slate-100 mb-3">Infrastructure Overview</h1>
+        <p class="text-slate-400 text-lg max-w-3xl">
+          A production homelab with multi-VLAN network segmentation, a full monitoring stack,
+          containerized services, and automated backups. Every component is managed as code with
+          Ansible.
+        </p>
+      </div>
+
+      <!-- Physical Hardware -->
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-slate-100 mb-4">Physical Hardware</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {
+            hardware.map((h) => (
+              <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
+                <div class="flex items-start justify-between gap-2 mb-3">
+                  <div>
+                    <h3 class="text-slate-100 font-semibold">{h.name}</h3>
+                    <p class="text-sky-400 text-sm font-medium">{h.model}</p>
+                  </div>
+                </div>
+                <ul class="mb-3 space-y-0.5">
+                  {h.specs.map((s) => (
+                    <li class="text-slate-400 text-xs font-mono">{s}</li>
+                  ))}
+                </ul>
+                <p class="text-slate-400 text-sm leading-relaxed">{h.description}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Architecture diagram -->
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-slate-100 mb-4">Architecture</h2>
+        <div class="bg-slate-800 border border-slate-700 rounded-xl p-6">
+
+          <!-- Internet → ISP Router → OPNsense -->
+          <div class="mb-4 flex flex-col items-start gap-1">
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm font-semibold text-sky-400">Internet</span>
+            </div>
+            <span class="ml-1 text-slate-600 text-xs">↓</span>
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-sm font-semibold text-sky-400">ISP Router</span>
+              <span class="text-slate-300 text-sm">WAN</span>
+            </div>
+            <span class="ml-1 text-slate-600 text-xs">↓</span>
+            <div class="inline-flex flex-wrap items-baseline gap-x-3 bg-sky-500/10 border border-sky-500/20 rounded-lg px-4 py-2.5">
+              <span class="text-sky-300 font-semibold">OPNsense Firewall</span>
+              <span class="text-slate-400 text-sm">Multi-VLAN routing · Kea DHCP · Unbound DNS · WireGuard VPN</span>
+            </div>
+          </div>
+
+          <!-- Branches -->
+          <div class="ml-4 pl-5 border-l-2 border-slate-600 space-y-2.5">
+
+            <!-- VLAN 10 -->
+            <div class="flex flex-wrap items-baseline gap-x-2">
+              <span class="font-mono text-sm font-semibold text-sky-400">VLAN 10</span>
+              <span class="text-slate-300 text-sm">Management</span>
+              <span class="text-slate-500 text-xs">Web interfaces (Centreon, Grafana, Graylog, Proxmox…) · SSH access</span>
+            </div>
+
+            <!-- VLAN 12 -->
+            <div>
+              <div class="flex flex-wrap items-baseline gap-x-2 mb-2">
+                <span class="font-mono text-sm font-semibold text-sky-400">VLAN 12</span>
+                <span class="text-slate-300 text-sm">Servers</span>
+                <span class="text-slate-500 text-xs">Production infrastructure</span>
+              </div>
+              <div class="ml-4 pl-5 border-l-2 border-slate-700 space-y-2">
+
+                <!-- Proxmox -->
+                <div>
+                  <div class="flex flex-wrap items-baseline gap-x-2 mb-1.5">
+                    <span class="text-slate-200 text-sm font-medium">Proxmox VE</span>
+                    <span class="text-slate-500 text-xs">Hypervisor · hosts all VMs below</span>
+                  </div>
+                  <div class="ml-4 pl-5 border-l-2 border-slate-700/50 space-y-1.5">
+                    <div class="flex flex-wrap items-baseline gap-x-2">
+                      <span class="text-slate-300 text-sm">Grafana</span>
+                      <span class="text-slate-500 text-xs">Metrics dashboards (InfluxDB + Telegraf)</span>
+                    </div>
+                    <div class="flex flex-wrap items-baseline gap-x-2">
+                      <span class="text-slate-300 text-sm">Centreon</span>
+                      <span class="text-slate-500 text-xs">System monitoring server</span>
+                    </div>
+                    <div class="flex flex-wrap items-baseline gap-x-2">
+                      <span class="text-slate-300 text-sm">Graylog + Datanode</span>
+                      <span class="text-slate-500 text-xs">Centralized log aggregation (2 VMs)</span>
+                    </div>
+
+                    <!-- Docker VM -->
+                    <div>
+                      <div class="flex flex-wrap items-baseline gap-x-2 mb-1.5">
+                        <span class="text-slate-300 text-sm">Docker</span>
+                        <span class="text-slate-500 text-xs">Containerized services behind Nginx Proxy Manager</span>
+                      </div>
+                      <div class="ml-4 pl-4 border-l-2 border-slate-700/30 flex flex-wrap gap-1.5 py-1">
+                        {['2FAuth','ARA','BentoPDF','DokuWiki','GitLab','Glance','IT-Tools','Joplin','Maloja','MariaDB','Mealie','Navidrome','Nextcloud','Nginx Proxy Manager','phpIPAM','Portainer','PostgreSQL','Vaultwarden'].map(s => (
+                          <span class="text-xs text-slate-400 bg-slate-700/50 px-2 py-0.5 rounded">{s}</span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-baseline gap-x-2">
+                      <span class="text-slate-300 text-sm">ZoneMinder</span>
+                      <span class="text-slate-500 text-xs">NVR / IP camera management</span>
+                    </div>
+                    <div class="flex flex-wrap items-baseline gap-x-2">
+                      <span class="text-slate-300 text-sm">OpenMediaVault</span>
+                      <span class="text-slate-500 text-xs">Secondary NAS backup storage</span>
+                    </div>
+                    <div class="flex flex-wrap items-baseline gap-x-2">
+                      <span class="text-slate-300 text-sm">Test servers</span>
+                      <span class="text-slate-500 text-xs">Debian and RedHat test environments</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Remaining VLANs -->
+            <div class="flex flex-wrap items-baseline gap-x-2">
+              <span class="font-mono text-sm font-semibold text-sky-400">VLAN 14</span>
+              <span class="text-slate-300 text-sm">Desktops</span>
+              <span class="text-slate-500 text-xs">Workstations & development machines</span>
+            </div>
+            <div class="flex flex-wrap items-baseline gap-x-2">
+              <span class="font-mono text-sm font-semibold text-sky-400">VLAN 16</span>
+              <span class="text-slate-300 text-sm">Trusted WiFi</span>
+              <span class="text-slate-500 text-xs">Personal wireless devices</span>
+            </div>
+            <div class="flex flex-wrap items-baseline gap-x-2">
+              <span class="font-mono text-sm font-semibold text-sky-400">VLAN 18</span>
+              <span class="text-slate-300 text-sm">Guest WiFi</span>
+              <span class="text-slate-500 text-xs">Isolated guest wireless · client isolation enforced at AP level</span>
+            </div>
+            <div class="flex flex-wrap items-baseline gap-x-2">
+              <span class="font-mono text-sm font-semibold text-sky-400">VLAN 20</span>
+              <span class="text-slate-300 text-sm">CCTV</span>
+              <span class="text-slate-500 text-xs">Isolated camera network → ZoneMinder</span>
+            </div>
+            <div class="flex flex-wrap items-baseline gap-x-2">
+              <span class="font-mono text-sm font-semibold text-sky-400">VLAN 22</span>
+              <span class="text-slate-300 text-sm">Guest Ethernet</span>
+              <span class="text-slate-500 text-xs">Isolated guest wired · client isolation enforced at switch level</span>
+            </div>
+            <div class="flex flex-wrap items-baseline gap-x-2">
+              <span class="font-mono text-sm font-semibold text-sky-400">WireGuard</span>
+              <span class="text-slate-300 text-sm">VPN</span>
+              <span class="text-slate-500 text-xs">Secure remote access</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Servers -->
+      <section class="mb-12">
+        <h2 class="text-xl font-bold text-slate-100 mb-4">Infrastructure Inventory</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {
+            servers.map((server) => (
+              <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
+                <div class="flex items-start justify-between gap-2 mb-2">
+                  <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-sky-400 flex-shrink-0">
+                      <path stroke-linecap="round" stroke-linejoin="round" d={server.icon} />
+                    </svg>
+                    <h3 class="text-slate-100 font-semibold">{server.name}</h3>
+                  </div>
+                  <span class="text-xs text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded font-mono whitespace-nowrap flex-shrink-0">
+                    {server.role}
+                  </span>
+                </div>
+                <p class="text-slate-400 text-sm leading-relaxed">{server.description}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Key Practices -->
+      <section>
+        <h2 class="text-xl font-bold text-slate-100 mb-4">Key Practices</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {
+            practices.map((item) => (
+              <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
+                <div class="flex items-center gap-2 mb-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-sky-400 flex-shrink-0">
+                    <path stroke-linecap="round" stroke-linejoin="round" d={item.icon} />
+                  </svg>
+                  <h3 class="text-slate-100 font-semibold">{item.title}</h3>
+                </div>
+                <p class="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Layout>
