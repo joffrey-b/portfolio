@@ -7,7 +7,7 @@ tags: ["Centreon", "Debian", "Docker", "HTTPS", "MariaDB"]
 
 ## Overview
 
-This role orchestrates comprehensive system updates across heterogeneous infrastructure including Debian, RedHat, and OPNsense systems with intelligent reboot handling and Centreon monitoring integration. It performs OS-specific updates, detects kernel updates requiring reboots, schedules Centreon downtimes to prevent false alerts during maintenance, automatically reboots systems when necessary, and provides informational summaries. The role handles special cases like Proxmox updates that affect VMs, Docker daemon updates requiring container restarts, and Centreon-specific package exclusions. This role supports a flag to activate automatic reboot or not. This is useful so critical hosts like Proxmox and OPNsense are not restarted automatically on kernel updates.
+This role orchestrates comprehensive system updates across heterogeneous infrastructure including Debian, RedHat, and OPNsense systems with intelligent reboot handling and Centreon monitoring integration. It performs OS-specific updates, detects kernel updates requiring reboots, schedules Centreon downtimes to prevent false alerts during maintenance, automatically reboots systems when necessary, and provides informational summaries. The role handles special cases like Proxmox updates that affect VMs, Docker daemon updates triggering container restarts, Graylog server and its data node services restart after package updates, and Centreon-specific package exclusions. This role supports a flag to activate automatic reboot or not. This is useful so critical hosts like Proxmox and OPNsense are not restarted automatically on kernel updates.
 
 ## What This Role Does
 
@@ -47,4 +47,5 @@ This role orchestrates comprehensive system updates across heterogeneous infrast
 - Auto-reboot is disabled by default — enable per-host in `host_vars` if desired
 - Proxmox host updates schedule Centreon downtimes for all hosted VMs before rebooting
 - Docker hosts automatically prune old images to save disk space
+- Graylog services (`graylog-server`, `graylog-datanode`) are restarted automatically if their packages are updated
 - OPNsense updates use the firmware API (not package manager)

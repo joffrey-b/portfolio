@@ -7,7 +7,7 @@ tags: ["Centreon", "Debian", "Docker", "HTTPS", "MariaDB"]
 
 ## Vue d'ensemble
 
-Ce rôle orchestre des mises à jour système complètes sur une infrastructure hétérogène incluant les systèmes Debian, RedHat et OPNsense, avec une gestion intelligente des redémarrages et une intégration à la supervision Centreon. Il effectue les mises à jour spécifiques à chaque OS, détecte les mises à jour de noyau nécessitant un redémarrage, planifie des plages de maintenance Centreon pour éviter les fausses alertes, redémarre automatiquement les systèmes si nécessaire, et fournit des résumés informatifs. Le rôle gère des cas particuliers comme les mises à jour de Proxmox affectant les VMs, les mises à jour du daemon Docker nécessitant le redémarrage des conteneurs, et les exclusions de paquets spécifiques à Centreon. Ce rôle prend en compte un flag permettant d'activer ou désactiver le redémarrage automatique des machines. Ceci est utile pour ne pas redémarrer automatiquement des machines critiques telles que Proxmox ou OPNsense par exemple.
+Ce rôle orchestre des mises à jour système complètes sur une infrastructure hétérogène incluant les systèmes Debian, RedHat et OPNsense, avec une gestion intelligente des redémarrages et une intégration à la supervision Centreon. Il effectue les mises à jour spécifiques à chaque OS, détecte les mises à jour de noyau nécessitant un redémarrage, planifie des plages de maintenance Centreon pour éviter les fausses alertes, redémarre automatiquement les systèmes si nécessaire, et fournit des résumés informatifs. Le rôle gère des cas particuliers comme les mises à jour de Proxmox affectant les VMs, les mises à jour du daemon Docker entrainant le redémarrage des conteneurs, le redémarrage des services du serveur Graylog et de son data node, et les exclusions de paquets spécifiques à Centreon. Ce rôle prend en compte un flag permettant d'activer ou désactiver le redémarrage automatique des machines. Ceci est utile pour ne pas redémarrer automatiquement des machines critiques telles que Proxmox ou OPNsense par exemple.
 
 ## Ce que fait ce rôle
 
@@ -47,4 +47,5 @@ Ce rôle orchestre des mises à jour système complètes sur une infrastructure 
 - Le redémarrage automatique est désactivé par défaut — à activer par hôte dans `host_vars` si souhaité
 - Les mises à jour d'hôtes Proxmox planifient des plages de maintenance Centreon pour toutes les VMs hébergées avant le redémarrage
 - Les hôtes Docker nettoient automatiquement les anciennes images pour gagner de l'espace disque
+- Les services `graylog-server` et `graylog-datanode` sont redémarrés automatiquement si leurs paquets sont mis à jour
 - Les mises à jour OPNsense utilisent l'API firmware (pas le gestionnaire de paquets)
