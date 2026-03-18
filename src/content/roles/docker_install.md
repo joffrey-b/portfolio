@@ -7,7 +7,7 @@ tags: ["DNS", "Debian", "Docker", "HTTPS", "JSON"]
 
 ## Overview
 
-This role installs Docker Engine (CE) on RedHat-based systems. It configures the official Docker CE repository, installs Docker Engine, CLI tools, containerd runtime, and Docker Compose V2 plugin, starts and enables the Docker daemon, and adds specified users to the docker group for non-root container management.
+This role installs Docker Engine (CE) on RedHat-based systems. It configures the official Docker CE repository, installs Docker Engine, CLI tools, containerd runtime, and Docker Compose V2 plugin, creates an override needed by navidrome, starts and enables the Docker daemon, and adds specified users to the docker group for non-root container management.
 
 ## What This Role Does
 
@@ -45,5 +45,6 @@ This role installs Docker Engine (CE) on RedHat-based systems. It configures the
 
 - Installs `docker-ce`, `docker-ce-cli`, `containerd.io`, `docker-buildx-plugin`, `docker-compose-plugin`
 - Users added to the docker group gain access to Docker commands
+- An override is created so the music library is mounted before containers start so navidrome doesn't have an empty library
 - Docker daemon is enabled to start automatically on boot
 - This role only supports RedHat-based distributions

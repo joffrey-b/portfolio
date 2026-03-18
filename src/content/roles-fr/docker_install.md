@@ -7,7 +7,7 @@ tags: ["DNS", "Debian", "Docker", "HTTPS", "JSON"]
 
 ## Vue d'ensemble
 
-Ce rôle installe Docker Engine (CE) sur les systèmes basés sur RedHat. Il configure le dépôt officiel Docker CE, installe Docker Engine, les outils CLI, le runtime containerd et le plugin Docker Compose V2, démarre et active le daemon Docker, et ajoute les utilisateurs spécifiés au groupe docker pour la gestion des conteneurs sans droits root.
+Ce rôle installe Docker Engine (CE) sur les systèmes basés sur RedHat. Il configure le dépôt officiel Docker CE, installe Docker Engine, les outils CLI, le runtime containerd et le plugin Docker Compose V2, créé un override nécessaire à navidrome, démarre et active le daemon Docker, et ajoute les utilisateurs spécifiés au groupe docker pour la gestion des conteneurs sans droits root.
 
 ## Ce que fait ce rôle
 
@@ -45,5 +45,6 @@ Ce rôle installe Docker Engine (CE) sur les systèmes basés sur RedHat. Il con
 
 - Installe `docker-ce`, `docker-ce-cli`, `containerd.io`, `docker-buildx-plugin`, `docker-compose-plugin`
 - Les utilisateurs ajoutés au groupe docker obtiennent accès aux commandes Docker
+- Un override est créé afin que la librarie musicale soit montée avant le démarrage des conteneurs pour que navidrome n'ait pas une librairie vide
 - Le daemon Docker est activé pour démarrer automatiquement au boot
 - Ce rôle ne prend en charge que les distributions basées sur RedHat
