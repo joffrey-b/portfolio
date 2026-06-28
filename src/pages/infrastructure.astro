@@ -27,7 +27,7 @@ const hardware = [
       '1× Intel I350-T4',
     ],
     description:
-      'Main server running 10+ VMs: monitoring stack, logging, Docker services, ZoneMinder, OpenMediaVault, a Windows 11 gaming VM with PCI passthrough, a Linux Mint dev VM, and test servers.',
+      'Main server running 10+ VMs: monitoring stack, logging, Docker services, Frigate, OpenMediaVault, a Windows 11 gaming VM with PCI passthrough, a Linux Mint dev VM, and test servers.',
   },
   {
     name: 'Proxmox Backup Server',
@@ -117,10 +117,10 @@ const servers = [
   },
   {
     name: 'NVR',
-    role: 'ZoneMinder',
+    role: 'Frigate',
     icon: 'M15.75 10.5l4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z',
     description:
-      'Network video recorder managing IP security cameras on an isolated CCTV VLAN.',
+      'Network video recorder managing IP security cameras on an isolated CCTV VLAN, running on its own dedicated Debian server. Replaced ZoneMinder, whose Ansible role is kept on standby in case a reinstall is ever needed.',
   },
   {
     name: 'NAS — Primary',
@@ -270,14 +270,14 @@ const practices = [
                         <span class="text-slate-500 text-xs">Containerized services behind Nginx Proxy Manager</span>
                       </div>
                       <div class="ml-4 pl-4 border-l-2 border-slate-700/30 flex flex-wrap gap-1.5 py-1">
-                        {['2FAuth','ARA','BentoPDF','DokuWiki','GitLab','Glance','IT-Tools','Joplin','Maloja','MariaDB','Mealie','Navidrome','Nextcloud','Nginx Proxy Manager','phpIPAM','Portainer','PostgreSQL','Vaultwarden'].map(s => (
+                        {['2FAuth','ARA','BentoPDF','DokuWiki','GitLab','Glance','IT-Tools','Joplin','Koito','Maloja','MariaDB','Mealie','Navidrome','Nextcloud','Nginx Proxy Manager','phpIPAM','Portainer','PostgreSQL','Vaultwarden'].map(s => (
                           <span class="text-xs text-slate-400 bg-slate-700/50 px-2 py-0.5 rounded">{s}</span>
                         ))}
                       </div>
                     </div>
 
                     <div class="flex flex-wrap items-baseline gap-x-2">
-                      <span class="text-slate-300 text-sm">ZoneMinder</span>
+                      <span class="text-slate-300 text-sm">Frigate</span>
                       <span class="text-slate-500 text-xs">NVR / IP camera management</span>
                     </div>
                     <div class="flex flex-wrap items-baseline gap-x-2">
@@ -312,7 +312,7 @@ const practices = [
             <div class="flex flex-wrap items-baseline gap-x-2">
               <span class="font-mono text-sm font-semibold text-sky-400">VLAN 20</span>
               <span class="text-slate-300 text-sm">CCTV</span>
-              <span class="text-slate-500 text-xs">Isolated camera network → ZoneMinder</span>
+              <span class="text-slate-500 text-xs">Isolated camera network → Frigate</span>
             </div>
             <div class="flex flex-wrap items-baseline gap-x-2">
               <span class="font-mono text-sm font-semibold text-sky-400">VLAN 22</span>

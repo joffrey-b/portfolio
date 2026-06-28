@@ -1,7 +1,7 @@
 ---
 title: "Installation ZoneMinder"
 category: "Applications"
-description: "Ce rôle installe et configure ZoneMinder, un système open-source de vidéosurveillance et NVR (Network Video Recorder)."
+description: "Ce rôle installe et configure ZoneMinder, un système open-source de vidéosurveillance NVR — conservé en réserve depuis la migration vers Frigate comme système actif."
 tags: ["Apache", "Debian", "HTTPS", "JSON", "MariaDB", "MySQL"]
 ---
 
@@ -106,6 +106,7 @@ Installe les paquets nécessaires :
 
 ## Notes
 
+- **Plus utilisé en production** — remplacé par `frigate_install` ; ce rôle est conservé en réserve au cas où ZoneMinder devrait être réinstallé
 - Le mot de passe de la base de données est stocké dans Ansible Vault
 - Les fichiers de certificat SSL doivent exister avant l'exécution du rôle (déployer via `deploy_ssl_certificates`)
 - Après l'installation, ajouter les caméras en utilisant le rôle `zoneminder_monitors`
