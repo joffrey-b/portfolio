@@ -8,8 +8,10 @@ description: "Serveur de streaming musical auto-hébergé avec API compatible Su
 order: 17
 icon: "M9 9V4.5a.75.75 0 0 1 .9-.735l9.75 1.95a.75.75 0 0 1 .6.735v9.3m-11.25 0a2.25 2.25 0 1 0 4.5 0 2.25 2.25 0 0 0-4.5 0Zm11.25 0a2.25 2.25 0 1 0 4.5 0 2.25 2.25 0 0 0-4.5 0Z"
 screenshots:
-  - caption: "Vue de la bibliothèque Navidrome"
-  - caption: "Écran de lecture en cours"
+  - caption: "Vue artiste Navidrome"
+    image: "./images/navidrome_artist_view.png"
+  - caption: "Lecture en cours"
+    image: "./images/navidrome_song_playing.png"
 relatedRoles: ["navidrome_scan", "navidrome_playlists_backup", "navidrome_db_backup", "cron_configuration"]
 ---
 

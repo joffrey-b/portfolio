@@ -9,7 +9,9 @@ order: 23
 icon: "M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"
 screenshots:
   - caption: "Liste des conteneurs Portainer"
+    image: "./images/portainer_container_list.png"
   - caption: "Utilisation des ressources d'un conteneur"
+    image: "./images/portainer_container_stats.png"
 relatedRoles: ["docker_install", "docker_compositor"]
 ---
 

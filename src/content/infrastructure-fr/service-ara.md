@@ -9,7 +9,9 @@ order: 2
 icon: "m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"
 screenshots:
   - caption: "Historique des exécutions de playbooks ARA"
-  - caption: "Vue détaillée d'un résultat de tâche"
+    image: "./images/ara_playbook_run_history.png"
+  - caption: "Vue détaillée d'un résultat de playbook"
+    image: "./images/ara_playbook_run_detailed_view.png"
 relatedRoles: ["docker_install", "docker_compositor"]
 ---
 

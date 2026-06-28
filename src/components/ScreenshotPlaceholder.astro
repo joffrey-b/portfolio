@@ -18,11 +18,11 @@ const comingSoonText = lang === 'fr' ? 'Capture à venir' : 'Screenshot coming s
 
 {
   screenshots.length > 0 && (
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div class:list={['grid grid-cols-1 gap-4 items-start', { 'sm:grid-cols-2': screenshots.length > 1 }]}>
       {screenshots.map((s) =>
         s.image ? (
           <figure class="rounded-xl overflow-hidden border border-slate-700 bg-slate-800">
-            <Image src={s.image} alt={s.caption} class="w-full aspect-video object-cover" />
+            <Image src={s.image} alt={s.caption} class="w-full h-auto" />
             <figcaption class="text-slate-400 text-sm px-3 py-2">{s.caption}</figcaption>
           </figure>
         ) : (
