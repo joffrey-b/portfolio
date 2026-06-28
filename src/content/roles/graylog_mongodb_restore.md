@@ -7,7 +7,7 @@ tags: ["Graylog", "MongoDB", "NAS", "Synology"]
 
 ## Overview
 
-Restores the Graylog MongoDB database from the most recent backup archive created by the `graylog_mongodb_backup` role. Drops and replaces the existing `graylog` database. Configuration is fully managed by the `graylog_install` role and is not restored from backup — only the MongoDB data (inputs, pipelines, streams, dashboards, settings) is restored.
+Restores the Graylog MongoDB database from the most recent backup archive created by the `graylog_mongodb_backup` role. Drops and replaces the existing `graylog` database. Configuration is fully managed by the `graylog_install` role and is not restored from backup. Only the MongoDB data (inputs, pipelines, streams, dashboards, settings) is restored.
 
 ## What This Role Does
 

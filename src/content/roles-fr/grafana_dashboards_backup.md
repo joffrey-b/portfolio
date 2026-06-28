@@ -35,5 +35,5 @@ Ce rôle sauvegarde tous les dashboards Grafana via l'API vers deux NAS en paral
 ## Notes
 
 - Les dashboards sont enregistrés en JSON pur (sans métadonnées du wrapper API), importables directement via l'interface Grafana
-- La structure des dossiers n'est pas préservée — utilisez les noms de dossiers dans les noms de fichiers à titre de référence
+- La structure des dossiers n'est pas préservée. Utilisez les noms de dossiers dans les noms de fichiers à titre de référence
 - Les configurations de sources de données ne sont PAS incluses (utilisez `grafana_datasource_create` séparément)

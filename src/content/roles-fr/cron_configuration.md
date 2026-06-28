@@ -28,7 +28,7 @@ Ce rôle centralise toute la planification cron de l'infrastructure en un seul e
 
 ## Notes
 
-- Les tâches de sauvegarde s'exécutent uniquement sur l'hôte `docker` ; la planification PBS s'exécute uniquement sur l'hôte `proxmox` — tous les autres hôtes sont ignorés
+- Les tâches de sauvegarde s'exécutent uniquement sur l'hôte `docker` ; la planification PBS s'exécute uniquement sur l'hôte `proxmox`. Tous les autres hôtes sont ignorés
 - Les montages NAS doivent déjà être présents avant l'exécution de ces tâches, ce qui est géré par le rôle `nas_mount_systemd`
 - Les identifiants pour Koito et Maloja sont stockés dans Ansible Vault et ne sont jamais journalisés
 - Conserve les 5 sauvegardes les plus récentes par NAS pour chaque tâche planifiée

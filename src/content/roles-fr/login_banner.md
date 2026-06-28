@@ -7,7 +7,7 @@ tags: ["Bash", "Debian", "RedHat", "Rocky Linux"]
 
 ## Vue d'ensemble
 
-Ce rôle installe `linux_logo` pour afficher un logo en ASCII art avec les informations système — version de l'OS, CPU, RAM, nom d'hôte — à chaque connexion interactive. Sur les systèmes Debian, il s'agit d'une simple installation de paquet ; sur les systèmes RedHat, où aucun paquet n'existe, le rôle compile `linux_logo` depuis les sources. Chaque hôte peut avoir son propre logo personnalisé, ou utiliser par défaut celui de sa famille d'OS.
+Ce rôle installe `linux_logo` pour afficher un logo en ASCII art avec les informations système, version de l'OS, CPU, RAM, nom d'hôte, à chaque connexion interactive. Sur les systèmes Debian, il s'agit d'une simple installation de paquet ; sur les systèmes RedHat, où aucun paquet n'existe, le rôle compile `linux_logo` depuis les sources. Chaque hôte peut avoir son propre logo personnalisé, ou utiliser par défaut celui de sa famille d'OS.
 
 ## Ce que fait ce rôle
 

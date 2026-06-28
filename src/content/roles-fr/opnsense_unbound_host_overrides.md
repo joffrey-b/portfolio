@@ -1,5 +1,5 @@
 ---
-title: "OPNsense Unbound — Redirections d'hôtes"
+title: "OPNsense Unbound, Redirections d'hôtes"
 category: "Firewall & Security"
 description: "Ce rôle gère les redirections d'hôtes DNS (enregistrements DNS locaux) dans le résolveur Unbound d'OPNsense via l'API REST."
 tags: ["DNS", "Grafana", "HTTPS", "JSON", "OPNsense", "REST API"]

@@ -2,140 +2,32 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
 
-const hardware = [
-  {
-    name: 'Pare-feu OPNsense',
-    model: 'Ordinateur Asus',
-    specs: [
-      'Intel Core i5-4570S @ 2,90 GHz',
-      '16 Go DDR3 RAM',
-      'SSD 128 Go',
-      '2× Intel I350-T4 (WAN + par VLAN)',
-    ],
-    description:
-      "Cœur du réseau. Gère tout le routage inter-VLAN, les règles de pare-feu, Kea DHCP, Unbound DNS et le VPN WireGuard. Entièrement géré via l'API REST avec Ansible.",
-  },
-  {
-    name: 'Hyperviseur Proxmox VE',
-    model: 'HP Z440',
-    specs: [
-      'Intel Xeon E5-2698v3 @ 2,30 GHz',
-      '128 Go DDR4 RAM',
-      'SSD PNY 1 To (stockage VMs)',
-      'HDD Seagate 6 To + 3 To',
-      '1× Intel I350-T4',
-    ],
-    description:
-      "Serveur principal hébergeant 10+ VMs : stack de supervision, journalisation, services Docker, Frigate, OpenMediaVault, une VM gaming Windows 11 avec passthrough PCI, une VM de dev Linux Mint et des serveurs de test.",
-  },
-  {
-    name: 'Proxmox Backup Server',
-    model: 'HP EliteDesk 800 G2',
-    specs: [
-      'Intel Xeon E3-1245v3',
-      '16 Go DDR3 RAM',
-      'NIC intégrée',
-    ],
-    description:
-      'Hôte de sauvegarde dédié sous Proxmox Backup Server. Sauvegardes chiffrées des VMs importantes exécutées chaque nuit.',
-  },
-  {
-    name: 'NAS Principal',
-    model: 'Synology DS418',
-    specs: [
-      '4× 3 To Seagate Ironwolf',
-      '12 To de stockage brut',
-      'Volumes chiffrés',
-    ],
-    description:
-      'Cible de sauvegarde principale. Utilise le RAID SHR de Synology et des dossiers chiffrés. Reçoit les sauvegardes Proxmox toutes les deux nuits.',
-  },
-  {
-    name: 'Switch',
-    model: 'Zyxel GS1900-24E',
-    specs: ['24 ports Gigabit managé', 'Compatible VLAN (802.1Q)'],
-    description:
-      'Switch managé gérant tout le trafic. Configuré pour gérer le trafic VLAN taggé et non taggé.',
-  },
-  {
-    name: 'Point d\'accès WiFi',
-    model: 'Zyxel NWA50AX',
-    specs: ['WiFi 6 (802.11ax)', 'Multi-SSID avec tagging VLAN'],
-    description:
-      "Point d'accès diffusant des SSID séparés pour les appareils de confiance, le WiFi invité et la vidéosurveillance — chacun tagué vers son VLAN isolé respectif.",
-  },
-];
+const infraItems = await getCollection('infrastructure-fr');
+const hardware = infraItems
+  .filter((i) => i.data.type === 'hardware')
+  .sort((a, b) => a.data.order - b.data.order);
+const coreServices = infraItems
+  .filter((i) => i.data.type === 'service' && i.data.group === 'core')
+  .sort((a, b) => a.data.order - b.data.order);
+const appServices = infraItems
+  .filter((i) => i.data.type === 'service' && i.data.group === 'app')
+  .sort((a, b) => a.data.order - b.data.order);
 
-const servers = [
-  {
-    name: 'Pare-feu',
-    role: 'OPNsense',
-    icon: 'M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z',
-    description:
-      "Pare-feu BSD avec gestion via API REST, routage multi-VLAN, Kea DHCP, Unbound DNS et automatisation des règles de pare-feu.",
-  },
-  {
-    name: 'Hyperviseur',
-    role: 'Proxmox',
-    icon: 'M6 6.878V6a2.25 2.25 0 0 1 2.25-2.25h7.5A2.25 2.25 0 0 1 18 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 0 0 4.5 9v.878m13.5-3A2.25 2.25 0 0 1 19.5 9v.878m0 0a2.246 2.246 0 0 0-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0 1 21 12v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6c0-.98.626-1.813 1.5-2.122',
-    description: "Hyperviseur KVM/LXC hébergeant la majorité de l'infrastructure avec des machines virtuelles.",
-  },
-  {
-    name: 'Serveur de Sauvegarde',
-    role: 'Proxmox BS',
-    icon: 'M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z',
-    description: 'Proxmox Backup Server dédié effectuant des sauvegardes chiffrées des VMs importantes chaque nuit.',
-  },
-  {
-    name: 'Métriques',
-    role: 'Grafana + InfluxDB',
-    icon: 'M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z',
-    description:
-      'Visualisation des métriques time-series (Grafana) et stockage (InfluxDB), avec des agents Telegraf sur tous les hôtes et via SNMP pour Synology.',
-  },
-  {
-    name: 'Journalisation',
-    role: 'Graylog + OpenSearch',
-    icon: 'M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z',
-    description:
-      "Centralisation des journaux répartie sur deux VMs : un nœud principal Graylog et un nœud de données OpenSearch dédié stockant les logs sur un disque séparé. Tous les hôtes transfèrent leurs logs via rsyslog.",
-  },
-  {
-    name: 'Supervision',
-    role: 'Centreon',
-    icon: 'M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5',
-    description:
-      "Plateforme de supervision des services et des performances avec des contrôles SNMP. Envoi d'alertes e-mail via Postfix.",
-  },
-  {
-    name: 'Hôte Docker',
-    role: 'Redhat',
-    icon: 'M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9',
-    description:
-      'VM RedHat hébergeant 15+ services conteneurisés derrière Nginx Proxy Manager avec des certificats SSL individuels. Accessible uniquement depuis le réseau interne.',
-  },
-  {
-    name: 'NVR',
-    role: 'Frigate',
-    icon: 'M15.75 10.5l4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z',
-    description:
-      'Enregistreur vidéo réseau gérant les caméras de sécurité IP sur un VLAN CCTV isolé, sur son propre serveur Debian dédié. A remplacé ZoneMinder, dont le rôle Ansible est conservé en réserve en cas de besoin de réinstallation.',
-  },
-  {
-    name: 'NAS — Principal',
-    role: 'Synology',
-    icon: 'M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125',
-    description: 'Cible de sauvegarde principale. Reçoit les sauvegardes automatisées des VMs Proxmox, des données Docker et plus encore.',
-  },
-  {
-    name: 'NAS — Secondaire',
-    role: 'OpenMediaVault',
-    icon: 'M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125',
-    description:
-      'Cible de sauvegarde secondaire fonctionnant en tant que VM Proxmox, fournissant un stockage redondant pour toutes les données critiques.',
-  },
-];
+const appCategoryOrder = ['Infrastructure & Networking', 'Monitoring & Observability', 'Security', 'Media', 'Productivity & Tools'];
+const appCategoryLabels: Record<string, string> = {
+  'Infrastructure & Networking': 'Infrastructure & Réseau',
+  'Monitoring & Observability': 'Supervision & Observabilité',
+  Security: 'Sécurité',
+  Media: 'Médias',
+  'Productivity & Tools': 'Productivité & Outils',
+};
+const appsByCategory = appCategoryOrder.map((category) => ({
+  category,
+  label: appCategoryLabels[category],
+  items: appServices.filter((s) => s.data.category === category),
+}));
 
 const practices = [
   {
@@ -156,7 +48,7 @@ const practices = [
   {
     title: 'Observabilité Complète',
     icon: 'M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178ZM15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z',
-    desc: 'Tableaux de bord Grafana pour les métriques, Graylog pour les journaux centralisés, Centreon pour les contrôles de services — chaque hôte est supervisé.',
+    desc: 'Tableaux de bord Grafana pour les métriques, Graylog pour les journaux centralisés, Centreon pour les contrôles de services. Chaque hôte est supervisé.',
   },
 ];
 ---
@@ -179,25 +71,28 @@ const practices = [
       </div>
 
       <!-- Physical Hardware -->
-      <section class="mb-12">
+      <section id="physical-hardware" class="mb-12">
         <h2 class="text-xl font-bold text-slate-100 mb-4">Matériel Physique</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           {
             hardware.map((h) => (
-              <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
+              <a
+                href={`${import.meta.env.BASE_URL}fr/infrastructure/${h.slug}`}
+                class="group block bg-slate-800 border border-slate-700 rounded-xl p-5 hover:border-sky-500/50 hover:bg-slate-800/80 transition-all duration-200 hover:-translate-y-0.5"
+              >
                 <div class="flex items-start justify-between gap-2 mb-3">
                   <div>
-                    <h3 class="text-slate-100 font-semibold">{h.name}</h3>
-                    <p class="text-sky-400 text-sm font-medium">{h.model}</p>
+                    <h3 class="text-slate-100 font-semibold group-hover:text-sky-400 transition-colors">{h.data.name}</h3>
+                    <p class="text-sky-400 text-sm font-medium">{h.data.subtitle}</p>
                   </div>
                 </div>
                 <ul class="mb-3 space-y-0.5">
-                  {h.specs.map((s) => (
+                  {h.data.specs.map((s) => (
                     <li class="text-slate-400 text-xs font-mono">{s}</li>
                   ))}
                 </ul>
-                <p class="text-slate-400 text-sm leading-relaxed">{h.description}</p>
-              </div>
+                <p class="text-slate-400 text-sm leading-relaxed">{h.data.description}</p>
+              </a>
             ))
           }
         </div>
@@ -332,26 +227,63 @@ const practices = [
       <!-- Servers -->
       <section class="mb-12">
         <h2 class="text-xl font-bold text-slate-100 mb-4">Inventaire de l'infrastructure</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+        <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">Infrastructure principale</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           {
-            servers.map((server) => (
-              <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
+            coreServices.map((server) => (
+              <a
+                href={`${import.meta.env.BASE_URL}fr/infrastructure/${server.slug}`}
+                class="group block bg-slate-800 border border-slate-700 rounded-xl p-5 hover:border-sky-500/50 hover:bg-slate-800/80 transition-all duration-200 hover:-translate-y-0.5"
+              >
                 <div class="flex items-start justify-between gap-2 mb-2">
                   <div class="flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-sky-400 flex-shrink-0">
-                      <path stroke-linecap="round" stroke-linejoin="round" d={server.icon} />
+                      <path stroke-linecap="round" stroke-linejoin="round" d={server.data.icon} />
                     </svg>
-                    <h3 class="text-slate-100 font-semibold">{server.name}</h3>
+                    <h3 class="text-slate-100 font-semibold group-hover:text-sky-400 transition-colors">{server.data.name}</h3>
                   </div>
                   <span class="text-xs text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded font-mono whitespace-nowrap flex-shrink-0">
-                    {server.role}
+                    {server.data.subtitle}
                   </span>
                 </div>
-                <p class="text-slate-400 text-sm leading-relaxed">{server.description}</p>
-              </div>
+                <p class="text-slate-400 text-sm leading-relaxed">{server.data.description}</p>
+              </a>
             ))
           }
         </div>
+
+        <h3 id="self-hosted-applications" class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">Applications auto-hébergées</h3>
+        {
+          appsByCategory.map(({ label, items }) => (
+            <div class="mb-6 last:mb-0">
+              <h4 class="text-xs font-semibold text-sky-400/80 uppercase tracking-wider mb-2.5">{label}</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {
+                  items.map((server) => (
+                    <a
+                      href={`${import.meta.env.BASE_URL}fr/infrastructure/${server.slug}`}
+                      class="group block bg-slate-800 border border-slate-700 rounded-xl p-5 hover:border-sky-500/50 hover:bg-slate-800/80 transition-all duration-200 hover:-translate-y-0.5"
+                    >
+                      <div class="flex items-start justify-between gap-2 mb-2">
+                        <div class="flex items-center gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-sky-400 flex-shrink-0">
+                            <path stroke-linecap="round" stroke-linejoin="round" d={server.data.icon} />
+                          </svg>
+                          <h3 class="text-slate-100 font-semibold group-hover:text-sky-400 transition-colors">{server.data.name}</h3>
+                        </div>
+                        <span class="text-xs text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded font-mono whitespace-nowrap flex-shrink-0">
+                          {server.data.subtitle}
+                        </span>
+                      </div>
+                      <p class="text-slate-400 text-sm leading-relaxed">{server.data.description}</p>
+                    </a>
+                  ))
+                }
+              </div>
+            </div>
+          ))
+        }
       </section>
 
       <!-- Key Practices -->

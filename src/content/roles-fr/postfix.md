@@ -62,4 +62,4 @@ Ce rôle installe et configure Postfix comme relais SMTP pour l'envoi d'emails s
 
 - Gmail requiert un mot de passe d'application (pas le mot de passe du compte) lorsque la 2FA est activée
 - Le mot de passe de l'expéditeur est stocké dans Ansible Vault, jamais en clair
-- Utiliser le port `587` avec TLS (STARTTLS) pour Gmail — le port `465` utilise SSL implicite
+- Utiliser le port `587` avec TLS (STARTTLS) pour Gmail. Le port `465` utilise SSL implicite

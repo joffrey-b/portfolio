@@ -65,7 +65,7 @@ This role installs and configures Grafana on RedHat-based systems. It adds the o
 ## Notes
 
 - Run `deploy_ssl_certificates` before this role to ensure cert files exist
-- SQLite WAL mode is enabled by default — fixes "database is locked" errors when Grafana handles concurrent alert evaluations
+- SQLite WAL mode is enabled by default, fixes "database is locked" errors when Grafana handles concurrent alert evaluations
 - SMTP credentials are stored in Ansible Vault
 - Gmail requires an App Password (not account password) for SMTP with 2FA enabled
 - Synology MIB files are deployed to enable SNMP-based NAS monitoring in dashboards

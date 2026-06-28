@@ -28,6 +28,6 @@ Ce rôle sauvegarde le répertoire source du site portfolio vers deux NAS en par
 
 ## Notes
 
-- Le NAS doit être monté avant l'exécution — le playbook gère cela via `nas_mount`
+- Le NAS doit être monté avant l'exécution. Le playbook gère cela via `nas_mount`
 - Conserve les 5 dernières sauvegardes par NAS ; les fichiers plus anciens sont automatiquement supprimés
 - L'archivage est idempotent dans sa structure mais crée un nouveau fichier à chaque exécution

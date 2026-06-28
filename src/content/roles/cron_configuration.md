@@ -11,7 +11,7 @@ This role centralizes all cron-based scheduling across the homelab in one place,
 
 ## What This Role Does
 
-1. **Schedules the Proxmox PBS storage window** — enables the backup storage target shortly before the nightly backup run and disables it afterward so it isn't left mounted
+1. **Schedules the Proxmox PBS storage window**, enables the backup storage target shortly before the nightly backup run and disables it afterward so it isn't left mounted
 2. **Triggers the Koito backup** on a schedule, exporting listen history to dual NAS storage
 3. **Triggers the Maloja backup** on a schedule, exporting scrobble data to dual NAS storage
 4. **Triggers the Navidrome database backup** on a schedule, copying the SQLite database to dual NAS storage
@@ -28,7 +28,7 @@ This role centralizes all cron-based scheduling across the homelab in one place,
 
 ## Notes
 
-- Backup jobs run only on the `docker` host; the Proxmox PBS schedule runs only on the `proxmox` host — all other hosts are skipped
+- Backup jobs run only on the `docker` host; the Proxmox PBS schedule runs only on the `proxmox` host. All other hosts are skipped
 - NAS mounts must already be present before these jobs run, handled by the `nas_mount_systemd` role
 - Credentials for Koito and Maloja are stored in Ansible Vault and never logged
 - Keeps the 5 most recent backups per NAS for each scheduled job

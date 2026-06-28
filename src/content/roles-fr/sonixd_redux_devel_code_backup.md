@@ -25,6 +25,6 @@ Ce rôle sauvegarde l'intégralité du dépôt de développement Sonixd Redux su
 
 ## Notes
 
-- Le NAS doit être monté avant l'exécution — géré par le rôle `nas_mount` dans le playbook
+- Le NAS doit être monté avant l'exécution, géré par le rôle `nas_mount` dans le playbook
 - Conserve les 5 dernières sauvegardes par NAS ; les fichiers plus anciens sont automatiquement supprimés
 - Pour restaurer, extraire l'archive vers le répertoire d'origine du dépôt

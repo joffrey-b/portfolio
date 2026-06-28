@@ -48,9 +48,9 @@ Noms des archives : `docker_data_backup_YYYYMMDDTHHMMSS.tar.gz`
 
 ## Notes
 
-- Les conteneurs sont arrêtés pendant la sauvegarde — les services seront brièvement indisponibles
+- Les conteneurs sont arrêtés pendant la sauvegarde. Les services seront brièvement indisponibles
 - La plage de maintenance Centreon est planifiée pour : `Docker Containers Uptime`, `Docker Containers Status`, `Check Nginx Proxy Port`
-- Les échecs de planification des maintenances Centreon utilisent `failed_when: false` — la sauvegarde se poursuit même si Centreon est injoignable
+- Les échecs de planification des maintenances Centreon utilisent `failed_when: false`. La sauvegarde se poursuit même si Centreon est injoignable
 - Conserve les **2** dernières sauvegardes par NAS (contrairement à la plupart des autres rôles de sauvegarde qui en conservent 5)
 - Après la sauvegarde, les conteneurs sont toujours redémarrés même si l'archivage échoue
 - Utilisez le rôle `docker_data_restore` pour restaurer depuis une sauvegarde

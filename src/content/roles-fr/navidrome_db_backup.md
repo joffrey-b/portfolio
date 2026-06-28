@@ -28,7 +28,7 @@ Ce rôle sauvegarde la base de données SQLite de Navidrome sur deux NAS. Il pla
 
 ## Notes
 
-- Seul le conteneur Navidrome est arrêté — tous les autres services Docker continuent de fonctionner
+- Seul le conteneur Navidrome est arrêté. Tous les autres services Docker continuent de fonctionner
 - Si la copie de la base de données échoue, le conteneur est immédiatement redémarré plutôt que laissé arrêté
-- Les échecs de planification Centreon ne bloquent pas la sauvegarde — elle se poursuit même si Centreon est inaccessible
+- Les échecs de planification Centreon ne bloquent pas la sauvegarde. Elle se poursuit même si Centreon est inaccessible
 - Conserve les 5 dernières sauvegardes par NAS ; les fichiers plus anciens sont automatiquement supprimés

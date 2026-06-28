@@ -22,7 +22,7 @@ Installe et configure MongoDB et le serveur Graylog (Open) sur le nœud Graylog 
 
 | Variable | Description |
 |----------|-------------|
-| `vault_graylog_password_secret` | Secret partagé (min 64 caractères) — doit correspondre au nœud de données (depuis le vault) |
+| `vault_graylog_password_secret` | Secret partagé (min 64 caractères), doit correspondre au nœud de données (depuis le vault) |
 | `vault_graylog_root_password` | Mot de passe administrateur (haché en sha256 par le rôle) (depuis le vault) |
 | `graylog_install_mongodb_version` | Version de MongoDB à installer |
 | `graylog_install_version` | Version de Graylog à installer |
@@ -42,9 +42,9 @@ Installe et configure MongoDB et le serveur Graylog (Open) sur le nœud Graylog 
 
 - Le data node (`graylog_datanode_install`) doit être installé et en cours d'exécution **avant** ce rôle
 - Le secret partagé doit être identique sur les deux nœuds et est stocké dans Ansible Vault
-- Après l'installation, Graylog démarre avec une configuration minimale — exécuter `graylog_mongodb_restore` pour restaurer la configuration complète
+- Après l'installation, Graylog démarre avec une configuration minimale. Exécuter `graylog_mongodb_restore` pour restaurer la configuration complète
 - `graylog-server` est automatiquement redémarré si un paramètre de `server.conf` ou de sysconfig change
-- MongoDB écoute sur localhost et l'interface VLAN server — localhost est requis par un composant interne de Graylog au démarrage
+- MongoDB écoute sur localhost et l'interface VLAN server. Localhost est requis par un composant interne de Graylog au démarrage
 - Le versionlock MongoDB prévient les mises à jour non souhaitées via `dnf update`
-- Sur une nouvelle installation, les paramètres optionnels sont ajoutés à la fin de `server.conf` car le fichier par défaut les a commentés — c'est fonctionnellement correct, Graylog lit le fichier complet
+- Sur une nouvelle installation, les paramètres optionnels sont ajoutés à la fin de `server.conf` car le fichier par défaut les a commentés. C'est fonctionnellement correct, Graylog lit le fichier complet
 - Le heap JVM est calculé automatiquement depuis la RAM disponible (utilise la moitié par défaut) et peut être surchargé par hôte

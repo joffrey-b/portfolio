@@ -28,7 +28,7 @@ This role backs up the Navidrome SQLite database to dual NAS storage. It schedul
 
 ## Notes
 
-- Only the Navidrome container is stopped — all other Docker services keep running
+- Only the Navidrome container is stopped. All other Docker services keep running
 - If the database copy fails, the container is restarted immediately rather than left stopped
-- Centreon downtime failures don't block the backup — it proceeds even if Centreon is unreachable
+- Centreon downtime failures don't block the backup. It proceeds even if Centreon is unreachable
 - Keeps last 5 backups per NAS; older files are automatically deleted

@@ -22,7 +22,7 @@ Installs and configures MongoDB and Graylog server (Open) on the main Graylog no
 
 | Variable | Description |
 |----------|-------------|
-| `vault_graylog_password_secret` | Shared secret (min 64 chars) — must match the data node (from vault) |
+| `vault_graylog_password_secret` | Shared secret (min 64 chars), must match the data node (from vault) |
 | `vault_graylog_root_password` | Admin password (hashed with sha256 by the role) (from vault) |
 | `graylog_install_mongodb_version` | MongoDB version |
 | `graylog_install_version` | Graylog version |
@@ -42,9 +42,9 @@ Installs and configures MongoDB and Graylog server (Open) on the main Graylog no
 
 - The data node (`graylog_datanode_install`) must be installed and running **before** this role
 - The shared secret must be identical on both nodes and is stored in Ansible Vault
-- After install, Graylog starts with a minimal configuration — run `graylog_mongodb_restore` to restore full configuration
+- After install, Graylog starts with a minimal configuration. Run `graylog_mongodb_restore` to restore full configuration
 - `graylog-server` is automatically restarted if any `server.conf` or sysconfig setting changes
-- MongoDB listens on both localhost and the server VLAN interface — localhost is required by an internal Graylog component at startup
+- MongoDB listens on both localhost and the server VLAN interface. Localhost is required by an internal Graylog component at startup
 - MongoDB versionlock prevents unintended upgrades via `dnf update`
-- On a fresh install, optional settings are appended at the bottom of `server.conf` since the default file has them commented out — this is functionally correct, Graylog reads the full file
+- On a fresh install, optional settings are appended at the bottom of `server.conf` since the default file has them commented out. This is functionally correct, Graylog reads the full file
 - JVM heap is auto-calculated from available RAM (takes half of it by default) and can be overridden per host

@@ -1,5 +1,5 @@
 ---
-title: "OPNsense — Certificats de confiance"
+title: "OPNsense, Certificats de confiance"
 category: "Firewall & Security"
 description: "Ce rôle gère les certificats SSL/TLS sur OPNsense via l'API REST."
 tags: ["Centreon", "DNS", "HTTPS", "JSON", "Navidrome", "OPNsense", "SSL"]

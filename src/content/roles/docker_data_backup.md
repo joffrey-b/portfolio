@@ -48,9 +48,9 @@ Backup filenames: `docker_data_backup_YYYYMMDDTHHMMSS.tar.gz`
 
 ## Notes
 
-- Containers are stopped during the backup — services will be briefly unavailable
+- Containers are stopped during the backup. Services will be briefly unavailable
 - Centreon downtime is scheduled for: `Docker Containers Uptime`, `Docker Containers Status`, `Check Nginx Proxy Port`
-- Centreon downtime failures use `failed_when: false` — backup proceeds even if Centreon is unreachable
+- Centreon downtime failures use `failed_when: false`. Backup proceeds even if Centreon is unreachable
 - Keeps last **2** backups per NAS (unlike most other backup roles which keep 5)
 - After backup, containers are always restarted even if archiving fails
 - Use `docker_data_restore` role to restore from a backup

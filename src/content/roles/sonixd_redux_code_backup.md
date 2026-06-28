@@ -25,6 +25,6 @@ This role backs up the entire Sonixd Redux repository to dual NAS storage for re
 
 ## Notes
 
-- NAS must be mounted before running — handled by the `nas_mount` role in the playbook
+- NAS must be mounted before running, handled by the `nas_mount` role in the playbook
 - Keeps last 5 backups per NAS; older files are automatically deleted
 - To restore, extract the archive back to the original repository directory

@@ -62,4 +62,4 @@ This role installs and configures Postfix as an SMTP relay for sending system em
 
 - Gmail requires an App Password (not account password) when 2FA is enabled
 - The sender password is stored in Ansible Vault, never in plaintext
-- Use port `587` with TLS (STARTTLS) for Gmail — port `465` uses implicit SSL
+- Use port `587` with TLS (STARTTLS) for Gmail. Port `465` uses implicit SSL

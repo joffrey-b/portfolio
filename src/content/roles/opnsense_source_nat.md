@@ -50,5 +50,5 @@ This role creates and manages outbound NAT (Source NAT/SNAT) rules on OPNsense v
 
 - `wan_address` is a special OPNsense keyword that resolves to the current WAN IP
 - The WAN interface is connected to my ISP router, which then also does NAT to a public IP address
-- Rules are idempotent — matched by sequence number on existing rules
+- Rules are idempotent, matched by sequence number on existing rules
 - Configure firewall rules in `opnsense_firewall` to allow traffic before NAT applies

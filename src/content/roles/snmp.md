@@ -78,4 +78,4 @@ snmp_acl_info:
 - Credentials are stored in Ansible Vault
 - The Centreon community string gets full OID access (`.1.3.6.1`) for monitoring
 - Ensure firewall rules allow UDP port 161 from the Centreon server
-- Uses SNMPv2c (community-based) — not encrypted
+- Uses SNMPv2c (community-based), not encrypted

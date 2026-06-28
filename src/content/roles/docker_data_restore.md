@@ -32,7 +32,7 @@ The archive contains a `docker/` subdirectory, so extracting to `/home/bjoffrey`
 ## Notes
 
 - Automatically selects the most recent `docker_data_backup_*.tar.gz` from the NAS
-- Displays the backup filename and size before extracting — includes a confirmation pause
+- Displays the backup filename and size before extracting, includes a confirmation pause
 - The extraction overwrites existing files with the same paths
 - After restore, deploy the Docker Compose stack with `docker_compositor` to start containers
-- Files are extracted directly from NAS (no local copy needed — `remote_src: true`)
+- Files are extracted directly from NAS (no local copy needed, `remote_src: true`)

@@ -50,5 +50,5 @@ Ce rôle crée et gère les règles NAT sortant (Source NAT/SNAT) sur OPNsense v
 
 - `wan_address` est un mot-clé spécial OPNsense qui se résout en l'IP WAN actuelle
 - L'interface WAN est connectée au routeur de mon FAI, qui fait lui-même ensuite du NAT vers une IP publique
-- Les règles sont idempotentes — correspondance par numéro de séquence sur les règles existantes
+- Les règles sont idempotentes, correspondance par numéro de séquence sur les règles existantes
 - Configurez les règles de pare-feu dans `opnsense_firewall` pour autoriser le trafic avant que le NAT ne s'applique

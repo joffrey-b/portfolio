@@ -32,7 +32,7 @@ L'archive contient un sous-répertoire `docker/`, donc une extraction vers `/hom
 ## Notes
 
 - Sélectionne automatiquement le fichier `docker_data_backup_*.tar.gz` le plus récent sur le NAS
-- Affiche le nom du fichier de sauvegarde et sa taille avant l'extraction — inclut une pause de confirmation
+- Affiche le nom du fichier de sauvegarde et sa taille avant l'extraction, inclut une pause de confirmation
 - L'extraction écrase les fichiers existants portant les mêmes chemins
 - Après la restauration, déployez la stack Docker Compose avec `docker_compositor` pour démarrer les conteneurs
-- Les fichiers sont extraits directement depuis le NAS (aucune copie locale nécessaire — `remote_src: true`)
+- Les fichiers sont extraits directement depuis le NAS (aucune copie locale nécessaire, `remote_src: true`)

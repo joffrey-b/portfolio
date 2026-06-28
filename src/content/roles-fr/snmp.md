@@ -78,4 +78,4 @@ snmp_acl_info:
 - Les identifiants sont stockés dans Ansible Vault
 - La chaîne de communauté Centreon bénéficie d'un accès complet à l'arbre OID (`.1.3.6.1`) pour la supervision
 - S'assurer que les règles de pare-feu autorisent le port UDP 161 depuis le serveur Centreon
-- Utilise SNMPv2c (basé sur les communautés) — non chiffré
+- Utilise SNMPv2c (basé sur les communautés), non chiffré

@@ -44,6 +44,6 @@ This role installs and configures Chrony as an NTP (Network Time Protocol) clien
 
 ## Notes
 
-- Runs in client-only mode (`port 0`) — does not serve NTP to other hosts
-- RTC sync enabled — updates hardware clock
+- Runs in client-only mode (`port 0`), does not serve NTP to other hosts
+- RTC sync enabled, updates hardware clock
 - Config is backed up before changes; service restarted via handler

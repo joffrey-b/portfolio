@@ -44,7 +44,7 @@ This role orchestrates comprehensive system updates across heterogeneous infrast
 
 ## Notes
 
-- Auto-reboot is disabled by default — enable per-host in `host_vars` if desired
+- Auto-reboot is disabled by default. Enable per-host in `host_vars` if desired
 - Proxmox host updates schedule Centreon downtimes for all hosted VMs before rebooting
 - Docker hosts automatically prune old images to save disk space
 - Graylog services (`graylog-server`, `graylog-datanode`) are restarted automatically if their packages are updated

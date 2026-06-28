@@ -35,5 +35,5 @@ This role backs up all Grafana dashboards using the API to dual NAS storage. It 
 ## Notes
 
 - Dashboards are saved as pure JSON (without API wrapper metadata), importable directly via Grafana UI
-- Folder structure is not preserved — use folder names in filenames for reference
+- Folder structure is not preserved. Use folder names in filenames for reference
 - Datasource configurations are NOT included (use `grafana_datasource_create` separately)

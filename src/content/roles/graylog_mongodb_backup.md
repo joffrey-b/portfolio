@@ -7,7 +7,7 @@ tags: ["Graylog", "MongoDB", "NAS", "Synology"]
 
 ## Overview
 
-Backs up the MongoDB `graylog` database to dual NAS storage for redundancy. Preserves all inputs, pipelines, streams, indexes, dashboards, users, and settings. Configuration files are managed as code by the `graylog_install` role and are not included. Log data (OpenSearch indices) is intentionally excluded — only the configuration database is backed up.
+Backs up the MongoDB `graylog` database to dual NAS storage for redundancy. Preserves all inputs, pipelines, streams, indexes, dashboards, users, and settings. Configuration files are managed as code by the `graylog_install` role and are not included. Log data (OpenSearch indices) is intentionally excluded. Only the configuration database is backed up.
 
 ## What This Role Does
 
@@ -33,7 +33,7 @@ Backs up the MongoDB `graylog` database to dual NAS storage for redundancy. Pres
 
 ## Notes
 
-- `graylog-server` is stopped during the MongoDB dump for consistency, then restarted — expect a brief outage
+- `graylog-server` is stopped during the MongoDB dump for consistency, then restarted. Expect a brief outage
 - MongoDB itself remains running during the dump
 - The local staging directory is automatically removed after the archive is copied to the NAS
 - Keeps the last 5 backups per NAS by default; older files are auto-deleted

@@ -1,5 +1,5 @@
 ---
-title: "OPNsense Unbound — Paramètres"
+title: "OPNsense Unbound, Paramètres"
 category: "Firewall & Security"
 description: "Ce rôle configure les paramètres généraux et avancés du résolveur DNS Unbound dans OPNsense via l'API REST."
 tags: ["DHCP", "DNS", "HTTPS", "JSON", "OPNsense", "REST API", "SSL"]

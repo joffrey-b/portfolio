@@ -7,7 +7,7 @@ tags: ["Graylog", "MongoDB", "NAS", "Synology"]
 
 ## Vue d'ensemble
 
-Restaure la base de données MongoDB Graylog depuis l'archive de sauvegarde la plus récente créée par le rôle `graylog_mongodb_backup`. Supprime et remplace la base de données `graylog` existante. La configuration est entièrement gérée par le rôle `graylog_install` et n'est pas restaurée depuis la sauvegarde — seules les données MongoDB (inputs, pipelines, streams, dashboards, paramètres) sont restaurées.
+Restaure la base de données MongoDB Graylog depuis l'archive de sauvegarde la plus récente créée par le rôle `graylog_mongodb_backup`. Supprime et remplace la base de données `graylog` existante. La configuration est entièrement gérée par le rôle `graylog_install` et n'est pas restaurée depuis la sauvegarde. Seules les données MongoDB (inputs, pipelines, streams, dashboards, paramètres) sont restaurées.
 
 ## Ce que fait ce rôle
 

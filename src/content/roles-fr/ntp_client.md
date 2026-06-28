@@ -44,6 +44,6 @@ Ce rôle installe et configure Chrony en tant que client NTP (Network Time Proto
 
 ## Notes
 
-- Fonctionne en mode client uniquement (`port 0`) — ne sert pas le NTP aux autres hôtes
-- Synchronisation RTC activée — met à jour l'horloge matérielle
+- Fonctionne en mode client uniquement (`port 0`), ne sert pas le NTP aux autres hôtes
+- Synchronisation RTC activée, met à jour l'horloge matérielle
 - La configuration est sauvegardée avant les modifications ; le service est redémarré via un handler

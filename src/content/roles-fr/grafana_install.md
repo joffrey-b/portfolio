@@ -65,7 +65,7 @@ Ce rôle installe et configure Grafana sur les systèmes RedHat. Il ajoute le d�
 ## Notes
 
 - Exécuter `deploy_ssl_certificates` avant ce rôle pour s'assurer que les fichiers de certificats existent
-- Le mode WAL SQLite est activé par défaut — corrige les erreurs « database is locked » lorsque Grafana gère des évaluations d'alertes simultanées
+- Le mode WAL SQLite est activé par défaut, corrige les erreurs « database is locked » lorsque Grafana gère des évaluations d'alertes simultanées
 - Les identifiants SMTP sont stockés dans Ansible Vault
 - Gmail nécessite un mot de passe d'application (pas le mot de passe du compte) pour SMTP avec la double authentification activée
 - Les fichiers MIB Synology sont déployés pour activer la supervision NAS via SNMP dans les dashboards

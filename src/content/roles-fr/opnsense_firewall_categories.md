@@ -23,7 +23,7 @@ Ce rôle gère les catégories de règles de pare-feu sur OPNsense via l'API RES
 
 6. **Affiche un résumé** des catégories configurées
 
-**Note** : Les catégories sont appliquées immédiatement — aucune étape de reconfiguration n'est nécessaire.
+**Note** : Les catégories sont appliquées immédiatement. Aucune étape de reconfiguration n'est nécessaire.
 
 ## Variables du rôle
 

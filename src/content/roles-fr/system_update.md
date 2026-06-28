@@ -44,7 +44,7 @@ Ce rôle orchestre des mises à jour système complètes sur une infrastructure 
 
 ## Notes
 
-- Le redémarrage automatique est désactivé par défaut — à activer par hôte dans `host_vars` si souhaité
+- Le redémarrage automatique est désactivé par défaut, à activer par hôte dans `host_vars` si souhaité
 - Les mises à jour d'hôtes Proxmox planifient des plages de maintenance Centreon pour toutes les VMs hébergées avant le redémarrage
 - Les hôtes Docker nettoient automatiquement les anciennes images pour gagner de l'espace disque
 - Les services `graylog-server` et `graylog-datanode` sont redémarrés automatiquement si leurs paquets sont mis à jour

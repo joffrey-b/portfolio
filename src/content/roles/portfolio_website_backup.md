@@ -28,6 +28,6 @@ This role backs up the portfolio website source directory to dual NAS storage fo
 
 ## Notes
 
-- NAS must be mounted before running — the playbook handles this via `nas_mount`
+- NAS must be mounted before running. The playbook handles this via `nas_mount`
 - Keeps last 5 backups per NAS; older files are automatically deleted
 - Archiving is idempotent in structure but creates a new file each run

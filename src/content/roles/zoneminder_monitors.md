@@ -1,7 +1,7 @@
 ---
 title: "Zoneminder Monitors"
 category: "Applications"
-description: "This role automates the addition of camera monitors to ZoneMinder via the REST API — kept on standby after migrating to Frigate."
+description: "This role automates the addition of camera monitors to ZoneMinder via the REST API, kept on standby after migrating to Frigate."
 tags: ["HTTPS", "JSON", "REST API", "SSL", "VLAN"]
 ---
 
@@ -54,8 +54,8 @@ zoneminder_monitors_defaults:
 
 ## Notes
 
-- **No longer in production** — Frigate is now the active NVR; this role is kept in case ZoneMinder is ever reinstalled
-- Monitors are identified by name — cameras with the same name are not duplicated
+- **No longer in production**. Frigate is now the active NVR; this role is kept in case ZoneMinder is ever reinstalled
+- Monitors are identified by name. Cameras with the same name are not duplicated
 - `Modect` records only when motion is detected; `Record` records continuously; `Mocord` does both
-- RTSP URLs contain camera credentials — store them in Ansible Vault
+- RTSP URLs contain camera credentials. Store them in Ansible Vault
 - Run `zoneminder_install` before this role

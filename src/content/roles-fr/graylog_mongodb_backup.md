@@ -7,7 +7,7 @@ tags: ["Graylog", "MongoDB", "NAS", "Synology"]
 
 ## Vue d'ensemble
 
-Sauvegarde la base de données MongoDB `graylog` vers deux NAS en parallèle pour la redondance. Préserve tous les inputs, pipelines, streams, index, dashboards, utilisateurs et paramètres. Les fichiers de configuration sont gérés avec du code par le rôle `graylog_install` et ne sont pas inclus. Les données de log (indices OpenSearch) sont intentionnellement exclues — seule la base de données de configuration est sauvegardée.
+Sauvegarde la base de données MongoDB `graylog` vers deux NAS en parallèle pour la redondance. Préserve tous les inputs, pipelines, streams, index, dashboards, utilisateurs et paramètres. Les fichiers de configuration sont gérés avec du code par le rôle `graylog_install` et ne sont pas inclus. Les données de log (indices OpenSearch) sont intentionnellement exclues. Seule la base de données de configuration est sauvegardée.
 
 ## Ce que fait ce rôle
 
@@ -33,7 +33,7 @@ Sauvegarde la base de données MongoDB `graylog` vers deux NAS en parallèle pou
 
 ## Notes
 
-- `graylog-server` est arrêté pendant le dump MongoDB pour garantir la cohérence, puis redémarré — une courte interruption de service est à prévoir
+- `graylog-server` est arrêté pendant le dump MongoDB pour garantir la cohérence, puis redémarré. Une courte interruption de service est à prévoir
 - MongoDB lui-même reste en cours d'exécution pendant le dump
 - Le répertoire tampon local est automatiquement supprimé après que l'archive est copiée sur le NAS
 - Conserve les 5 dernières sauvegardes par NAS par défaut ; les fichiers plus anciens sont supprimés automatiquement
