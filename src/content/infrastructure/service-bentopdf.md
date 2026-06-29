@@ -10,9 +10,10 @@ icon: "M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1
 screenshots:
   - caption: "BentoPDF tool selection screen"
     image: "./images/bento_pdf_tools.png"
+openSource: true
 relatedRoles: ["docker_install", "docker_compositor", "docker_data_backup"]
 ---
 
-BentoPDF is a self-hosted toolkit for merging, splitting, compressing, and converting PDF files, an alternative to uploading documents to a third-party web tool. It's one of the smaller utility containers on the Docker host.
+BentoPDF is a self-hosted toolkit for merging, splitting, compressing, and converting PDF files, with all the processing happening client-side in the browser rather than on a server, so files never actually leave the device. It's used rarely, but it's specifically trusted for sensitive documents, like medical paperwork, where uploading to a random third-party web tool isn't an option. It's one of the smaller utility containers on the Docker host.
 
 Deployed through the generic Compose stack like the other lightweight utility apps here, with no app-specific Ansible role since there's nothing beyond the initial Compose service entry to manage.

@@ -12,9 +12,10 @@ screenshots:
     image: "./images/portainer_container_list.png"
   - caption: "Container resource usage"
     image: "./images/portainer_container_stats.png"
+openSource: true
 relatedRoles: ["docker_install", "docker_compositor"]
 ---
 
-Portainer provides a web UI for inspecting and managing the Docker host's containers, images, networks, and volumes, useful for a quick visual check without SSHing in and running `docker ps` by hand.
+Portainer provides a web UI for inspecting and managing the Docker host's containers, images, networks, and volumes, useful for a quick check on container health and resource usage without SSHing in and running `docker ps` by hand, and for browsing or exporting container logs.
 
-It runs through the generic Compose stack alongside the services it manages.
+It isn't used to deploy the stack itself, that's handled directly through Docker Compose, but it runs through that same generic Compose stack alongside the services it manages.

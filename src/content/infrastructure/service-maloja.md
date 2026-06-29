@@ -12,9 +12,12 @@ screenshots:
     image: "./images/maloja_top_artists.png"
   - caption: "Maloja pulse for last year"
     image: "./images/maloja_pulse.png"
+openSource: true
 relatedRoles: ["maloja_backup", "maloja_import_backup", "cron_configuration"]
 ---
 
-Maloja is a self-hosted scrobble tracker for music listening history, running as a backup to Koito, the primary listening-stats tracker, rather than as a second, independent primary source.
+Maloja is a self-hosted scrobble tracker for music listening history, running as a backup to Koito, the primary listening-stats tracker, rather than as a second, independent primary source. It used to be the primary tracker, but it only counts play counts, not listening duration, which Koito does track and is also more actively maintained, hence the switch. Maloja is kept purely as a redundant backup and isn't actually checked day to day.
 
-Its data is backed up nightly via the `maloja_backup` role, which authenticates to the Maloja backend and exports scrobble history to dual NAS storage. The `maloja_import_backup` role handles restoring from one of those exports if Maloja is ever reinstalled.
+Its data is backed up nightly using the same logic as the `maloja_backup` role: authenticating against Maloja's backend API (`POST /auth/authenticate`, separate from the web login) and exporting the full scrobble history from `/apis/mlj_1/export` to both NAS targets, keeping only the 5 most recent backups. As with Koito, the nightly run is a standalone shell script deployed by `cron_configuration`, since cron can't supply the interactive `become` password Ansible needs. The `maloja_backup` role stays useful for running the same backup by hand, on demand.
+
+Restoring is its own role, `maloja_import_backup`: it picks the newest export automatically, drops it into the container's import directory, restarts the container to trigger the import, and polls the logs for up to 10 minutes waiting for it to finish. Maloja itself skips any scrobbles already in the database, so re-importing never creates duplicates.

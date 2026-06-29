@@ -38,7 +38,7 @@ const practices = [
   {
     title: 'Double Stratégie de Sauvegarde',
     icon: 'M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z',
-    desc: 'Les services critiques sont sauvegardés à la fois sur un NAS Synology et une VM OpenMediaVault hébergée sur Proxmox. Les sauvegardes sont automatisées et planifiées.',
+    desc: 'Les services critiques sont sauvegardés à la fois sur un NAS Synology et une VM OpenMediaVault hébergée sur Proxmox. Chaque sauvegarde passe par un rôle Ansible, la plupart lancées manuellement, et quelques-unes selon une tâche cron nocturne.',
   },
   {
     title: 'Isolation Réseau',
@@ -65,8 +65,7 @@ const practices = [
         <h1 class="text-3xl font-bold text-slate-100 mb-3">Vue d'ensemble de l'Infrastructure</h1>
         <p class="text-slate-400 text-lg max-w-3xl">
           Une infrastructure de production avec segmentation réseau multi-VLAN, un stack de supervision
-          complet, des services conteneurisés et des sauvegardes automatisées. Chaque composant
-          est géré en tant que code avec Ansible.
+          complet, des services conteneurisés et des sauvegardes, tous gérés en tant que code avec Ansible.
         </p>
       </div>
 

@@ -10,9 +10,10 @@ icon: "M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9
 screenshots:
   - caption: "Glance dashboard homepage"
     image: "./images/glance_dashboard.png"
+openSource: true
 relatedRoles: ["docker_install", "docker_compositor"]
 ---
 
-Glance is a self-hosted, single-page dashboard aggregating links, service status, and RSS feeds, the kind of homepage that puts every other self-hosted service one click away instead of a row of browser bookmarks.
+Glance is a self-hosted, single-page dashboard aggregating links, service status, and RSS feeds, the kind of homepage that puts every other self-hosted service one click away instead of a row of browser bookmarks. It's rarely checked for the status angle specifically, since Centreon already sends an email the moment something actually goes wrong.
 
 It runs through the generic Compose stack; its configuration is a single YAML file, simple enough that it doesn't need its own Ansible role.

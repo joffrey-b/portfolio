@@ -12,9 +12,10 @@ screenshots:
     image: "./images/phpipam_subnets.png"
   - caption: "Subnet details"
     image: "./images/phpipam_subnet_detail.png"
+openSource: true
 relatedRoles: ["phpipam_configuration"]
 ---
 
-phpIPAM tracks IP address allocation and subnet usage across every VLAN in the homelab, the source of truth for which address belongs to which host before it's ever assigned.
+phpIPAM tracks IP address allocation and subnet usage across every VLAN in the homelab, the source of truth for which address belongs to which host before it's ever assigned, and the place to check what's free to hand out to a new or test machine. Beyond raw IPs, it also tracks hostnames, DHCP ranges, routers, switches, and other devices.
 
-Its configuration, subnets, VLANs, and address reservations, is deployed and kept in sync via the `phpipam_configuration` role rather than entered by hand through the web UI.
+Its configuration, sections, VLANs, subnets, device types, and individual devices with their per-interface addresses, is deployed via phpIPAM's REST API using the `phpipam_configuration` role, authenticating with an app-specific API token rather than a user login. The data itself lives in three separate vars files (VLANs, device types, devices) rather than in the role's code, so adding a new host to the IPAM is a data change, not a role change. It's additive rather than fully declarative, though: existing entries are matched by name and left alone, so a value changed by hand in the UI won't be silently overwritten, but it also won't be auto-corrected back.

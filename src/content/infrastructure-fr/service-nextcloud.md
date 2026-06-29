@@ -10,11 +10,12 @@ icon: "M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c
 screenshots:
   - caption: "Navigateur de fichiers Nextcloud"
     image: "./images/nextcloud_folders.png"
+openSource: true
 relatedRoles: ["docker_install", "docker_compositor", "docker_data_backup"]
 ---
 
 Nextcloud fournit une synchronisation et un stockage de fichiers auto-hébergés, utilisés comme cloud personnel entre ordinateur et mobile, une alternative à garder ses fichiers dans un service cloud tiers.
 
-Je ne l'utilise pas comme stockage principal, je m'en sers surtout pour le calendrier et pour les fichiers que j'attache aux événements.
+Je ne l'utilise pas comme stockage principal, celui-ci se trouve sur les NAS. Au quotidien, c'est surtout mon calendrier et mes contacts, gardés ici plutôt que de dépendre de Google pour l'un ou l'autre ; les seuls fichiers qui s'y retrouvent sont ceux que j'attache aux événements du calendrier, principalement des billets de concert et de train.
 
 Il tourne via la stack Compose générique ; les données du volume Docker sous-jacent sont couvertes par `docker_data_backup` plutôt qu'un rôle spécifique à Nextcloud.

@@ -12,11 +12,12 @@ screenshots:
     image: "./images/pbs_datastore_overview.png"
   - caption: "Backups status"
     image: "./images/pbs_backups.png"
+openSource: true
 relatedRoles: ["cron_configuration", "system_update"]
 ---
 
-Proxmox Backup Server is the software counterpart to the dedicated backup hardware it runs on, an open-source backup solution purpose-built for Proxmox VE, handling deduplication, incremental backups, and client-side encryption out of the box.
+Proxmox Backup Server is the software counterpart to the dedicated backup hardware it runs on, built by the Proxmox team itself rather than a third party, so it integrates tightly with Proxmox VE: deduplication, incremental backups, and client-side encryption all work out of the box.
 
-It powers on via BIOS before the daily backups, and powers off once the backups are done. This helps me save electricity.
+It powers on via BIOS before the nightly backups, and a cron job powers it back off once they're done, so the machine only draws power while it's actually needed. A verification pass runs every day to confirm the backups aren't corrupted.
 
 Its own web UI covers datastore management and backup verification; the scheduling of when its storage target is mounted in Proxmox is handled by the `cron_configuration` role rather than PBS itself.

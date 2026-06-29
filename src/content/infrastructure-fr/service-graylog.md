@@ -12,9 +12,10 @@ screenshots:
     image: "./images/graylog_search_interface.png"
   - caption: "Vue d'ensemble des sources de logs"
     image: "./images/graylog_log_sources.png"
+openSource: true
 relatedRoles: ["graylog_install", "graylog_datanode_install", "graylog_mongodb_backup", "graylog_mongodb_restore", "rsyslog_configuration"]
 ---
 
-Graylog est la couche de recherche et d'ingestion de la journalisation centralisée. Le stockage et l'indexation des logs eux-mêmes sont gérés par un nœud de données OpenSearch séparé sur son propre disque, qui fait partie du même déploiement Graylog, séparant l'ingestion du stockage pour qu'un pic de volume de logs n'affame pas les ressources propres de Graylog. Chaque hôte du homelab transfère sa sortie syslog ici via rsyslog, offrant un seul endroit consultable pour enquêter sur n'importe quoi, d'une tâche cron échouée à un blocage du pare-feu.
+Graylog est la couche de recherche et d'ingestion de la journalisation centralisée. Le stockage et l'indexation des logs eux-mêmes sont gérés par un nœud de données OpenSearch séparé sur son propre disque, monté au démarrage, qui fait partie du même déploiement Graylog, séparant l'ingestion du stockage pour qu'un pic de volume de logs n'affame pas les ressources propres de Graylog. Chaque hôte sauf les machines Windows transfère sa sortie syslog ici via rsyslog, offrant un seul endroit consultable pour enquêter sur n'importe quoi, d'une tâche cron échouée à un blocage du pare-feu. Des streams sont configurés par machine et par conteneur, ce qui permet de filtrer rapidement sur une source précise.
 
 Sa configuration, basée sur MongoDB, inputs, pipelines, streams, dashboards, est sauvegardée et restaurable indépendamment des données de logs elles-mêmes, qui vivent dans OpenSearch.

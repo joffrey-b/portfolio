@@ -1,20 +1,22 @@
 ---
 title: "Configuration Cron"
 category: "System Management"
-description: "Ce rôle centralise les tâches cron planifiées de l'infrastructure, incluant la planification de la fenêtre de sauvegarde Proxmox et le déclenchement des sauvegardes Koito, Maloja et de la base de données Navidrome."
+description: "Ce rôle centralise les tâches cron planifiées de l'infrastructure, incluant la planification de la fenêtre de sauvegarde Proxmox et les scripts de sauvegarde nocturnes de Koito, Maloja et de la base de données Navidrome."
 tags: ["Bash", "Cron", "JSON", "NAS", "Proxmox"]
 ---
 
 ## Vue d'ensemble
 
-Ce rôle centralise toute la planification cron de l'infrastructure en un seul endroit, séparant les questions de planification des rôles qui possèdent les services sous-jacents. Il gère actuellement la fenêtre de stockage du Proxmox Backup Server et déclenche les sauvegardes de Koito, Maloja et de la base de données Navidrome selon un planning récurrent.
+Ce rôle centralise toute la planification cron de l'infrastructure en un seul endroit, séparant les questions de planification des rôles qui possèdent les services sous-jacents. Il gère actuellement la fenêtre de stockage du Proxmox Backup Server ainsi que les sauvegardes nocturnes de Koito, Maloja et de la base de données Navidrome.
+
+Les sauvegardes Koito, Maloja et base de données Navidrome existent aussi sous forme de rôles Ansible dédiés, mais une tâche cron ne peut pas fournir le mot de passe `become` interactif dont Ansible a besoin pour s'exécuter en root. Pour ces trois sauvegardes, ce rôle déploie donc un script shell autonome, appartenant à root, qui reproduit la même logique de sauvegarde, et le planifie via cron plutôt que de relancer le rôle Ansible lui-même. Les rôles dédiés restent utiles pour lancer la même sauvegarde manuellement, à la demande.
 
 ## Ce que fait ce rôle
 
 1. **Planifie la fenêtre de stockage PBS** : active le stockage de sauvegarde juste avant la fenêtre de sauvegarde nocturne et le désactive ensuite pour éviter qu'il reste monté
-2. **Déclenche la sauvegarde Koito** selon un planning, exportant l'historique d'écoute vers deux NAS
-3. **Déclenche la sauvegarde Maloja** selon un planning, exportant les données de scrobbling vers deux NAS
-4. **Déclenche la sauvegarde de la base de données Navidrome** selon un planning, copiant la base SQLite vers deux NAS
+2. **Déploie et planifie un script de sauvegarde Koito**, exportant l'historique d'écoute vers deux NAS chaque nuit
+3. **Déploie et planifie un script de sauvegarde Maloja**, exportant les données de scrobbling vers deux NAS chaque nuit
+4. **Déploie et planifie un script de sauvegarde de la base de données Navidrome**, copiant la base SQLite vers deux NAS chaque nuit
 
 ## Variables du rôle
 

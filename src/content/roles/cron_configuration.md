@@ -1,20 +1,22 @@
 ---
 title: "Cron Configuration"
 category: "System Management"
-description: "This role centralizes scheduled cron jobs across the homelab, including Proxmox backup window scheduling and triggering the Koito, Maloja, and Navidrome database backups."
+description: "This role centralizes scheduled cron jobs across the homelab, including Proxmox backup window scheduling and the nightly Koito, Maloja, and Navidrome database backup scripts."
 tags: ["Bash", "Cron", "JSON", "NAS", "Proxmox"]
 ---
 
 ## Overview
 
-This role centralizes all cron-based scheduling across the homelab in one place, keeping timing concerns separate from the roles that own the underlying services. It currently manages the Proxmox Backup Server storage window and triggers the Koito, Maloja, and Navidrome database backups on a recurring schedule.
+This role centralizes all cron-based scheduling across the homelab in one place, keeping timing concerns separate from the roles that own the underlying services. It currently manages the Proxmox Backup Server storage window and the nightly Koito, Maloja, and Navidrome database backups.
+
+The Koito, Maloja, and Navidrome database backups also exist as their own dedicated Ansible roles, but a cron job can't supply the interactive `become` password Ansible needs to run as root. So for these three, this role deploys a standalone root-owned shell script that mirrors the same backup logic and schedules it with cron, instead of re-running the Ansible role itself. The dedicated roles stay useful for running the same backup by hand, on demand.
 
 ## What This Role Does
 
 1. **Schedules the Proxmox PBS storage window**, enables the backup storage target shortly before the nightly backup run and disables it afterward so it isn't left mounted
-2. **Triggers the Koito backup** on a schedule, exporting listen history to dual NAS storage
-3. **Triggers the Maloja backup** on a schedule, exporting scrobble data to dual NAS storage
-4. **Triggers the Navidrome database backup** on a schedule, copying the SQLite database to dual NAS storage
+2. **Deploys and schedules a Koito backup script**, exporting listen history to dual NAS storage every night
+3. **Deploys and schedules a Maloja backup script**, exporting scrobble data to dual NAS storage every night
+4. **Deploys and schedules a Navidrome database backup script**, copying the SQLite database to dual NAS storage every night
 
 ## Role Variables
 

@@ -12,9 +12,10 @@ screenshots:
     image: "./images/koito_listening_history_dashboard.png"
   - caption: "Koito top artist and album example"
     image: "./images/koito_top_example.png"
+openSource: true
 relatedRoles: ["koito_backup", "cron_configuration", "docker_install"]
 ---
 
-Koito is the primary tool for tracking personal music listening history, similar in spirit to Last.fm but fully self-hosted. Maloja runs alongside it as a secondary, backup tracker for the same listening data.
+Koito is the primary tool for tracking personal music listening history, similar in spirit to Last.fm but fully self-hosted, with stats updating in real time rather than the monthly reporting cycle typical of online platforms. Listening data can be filtered by week, year, or all time, and a rewind feature surfaces monthly or yearly recaps. Maloja runs alongside it as a secondary, backup tracker for the same listening data.
 
-Its listen history is backed up nightly via the `koito_backup` role, which authenticates with an API token and exports the full history as JSON to dual NAS storage, triggered on a schedule by `cron_configuration`.
+Its listen history is backed up nightly using the same logic as the `koito_backup` role: authenticating against Koito's `/apis/web/v1/export` endpoint with a token-based `Authorization` header, downloading the full history as a single JSON export, and writing it to both NAS targets as `koito_export_<timestamp>.json`, keeping only the last 5 backups per NAS. The nightly run itself is a standalone shell script deployed by `cron_configuration`, since a cron job can't supply the interactive `become` password Ansible needs. The `koito_backup` role stays useful for running the same backup by hand, on demand.

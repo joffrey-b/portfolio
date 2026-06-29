@@ -10,9 +10,12 @@ icon: "M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M
 screenshots:
   - caption: "Nginx Proxy Manager proxy host list"
     image: "./images/npm_hosts.png"
+openSource: true
 relatedRoles: ["docker_install", "docker_compositor"]
 ---
 
-Nginx Proxy Manager sits in front of every self-hosted app on the Docker host, routing each one's domain to the right container and handling SSL termination with Let's Encrypt certificates, all through its own web UI instead of hand-written Nginx config files.
+Nginx Proxy Manager is the only container on the Docker host with an exposed port, 443. Every other container that runs a service sits behind it as a proxy host, each with its own dedicated certificate so hosts can be added or removed on the fly, all through its own web UI instead of hand-written Nginx config files. Nothing else on the host is reachable directly, which keeps the attack surface down to this one container.
+
+Certificates are signed by OPNsense's internal CA rather than a public authority like Let's Encrypt, since these services aren't exposed to the internet. That CA is trusted on every personal device, so browsers still see a valid certificate with no warnings.
 
 It also proxies Frigate's web UI on its dedicated server, configured the same way through its own instance there. Deployed through the generic Compose stack rather than a dedicated role, since proxy hosts and certificates are managed by hand through the UI on both instances.

@@ -23,6 +23,7 @@ const infrastructure = defineCollection({
       order: z.number(),
       specs: z.array(z.string()).default([]),
       icon: z.string().optional(),
+      openSource: z.boolean().optional(),
       screenshots: z
         .array(
           z.object({
@@ -48,6 +49,7 @@ const infrastructureFr = defineCollection({
       order: z.number(),
       specs: z.array(z.string()).default([]),
       icon: z.string().optional(),
+      openSource: z.boolean().optional(),
       screenshots: z
         .array(
           z.object({

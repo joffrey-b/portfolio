@@ -12,9 +12,10 @@ screenshots:
     image: "./images/mealie_recipe_example.png"
   - caption: "Shopping list"
     image: "./images/mealie_shopping_list.png"
+openSource: true
 relatedRoles: ["docker_install", "docker_compositor", "docker_data_backup"]
 ---
 
-Mealie is a self-hosted recipe manager and meal planner, used to keep recipes searchable and shareable instead of scattered across browser bookmarks and screenshots.
+Mealie is a self-hosted recipe manager and meal planner, used to keep recipes searchable and shareable instead of scattered across browser bookmarks and screenshots, and to keep shopping lists in one place. It ships a fairly powerful API too, though day-to-day use doesn't go beyond the recipe and shopping-list features.
 
 It runs through the generic Compose stack; the underlying Docker volume data is covered by `docker_data_backup` rather than a recipe-specific role.

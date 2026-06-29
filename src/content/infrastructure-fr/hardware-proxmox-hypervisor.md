@@ -13,6 +13,6 @@ Le HP Z440 est la bête de somme du homelab, une station de travail reconvertie 
 
 Le stockage est partagé entre un SSD PNY de 1 To pour les disques des VMs (démarrage et IO rapides pour tout ce qui en a besoin) et une paire de disques durs Seagate de 6 To + 3 To pour le stockage volumineux moins sensible à la latence.
 
-Les VMs hébergées couvrent l'ensemble du homelab : la stack de supervision, la stack de journalisation, l'hôte Docker faisant tourner 19+ applications auto-hébergées, le serveur NVR dédié de Frigate, OpenMediaVault pour les sauvegardes secondaires, une VM gaming Windows 11 avec passthrough PCI complet d'un GPU dédié, une VM de développement Linux Mint, et quelques serveurs de test jetables.
+Les VMs hébergées couvrent l'ensemble du homelab : la stack de supervision, la stack de journalisation, l'hôte Docker faisant tourner 19+ applications auto-hébergées, le serveur NVR dédié de Frigate, OpenMediaVault pour les sauvegardes secondaires, une VM gaming Windows 11 avec passthrough PCI complet d'un GPU dédié qui fait aussi tourner un runner GitLab CI pour les jobs nécessitant un environnement Windows, une VM Linux Mint qui sert à la fois de contrôleur Ansible et de poste de développement pour Sonixd Redux et d'autres projets personnels, et une paire de serveurs de test RedHat et Debian jetables, réinitialisés depuis un snapshot propre après chaque campagne de test.
 
 Voir les [applications auto-hébergées](/fr/infrastructure#self-hosted-applications) plus bas pour ce que chacune de ces VMs fait tourner réellement.

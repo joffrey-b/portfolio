@@ -12,9 +12,12 @@ screenshots:
     image: "./images/maloja_top_artists.png"
   - caption: "Pulse Maloja de l'année écoulée"
     image: "./images/maloja_pulse.png"
+openSource: true
 relatedRoles: ["maloja_backup", "maloja_import_backup", "cron_configuration"]
 ---
 
-Maloja est un tracker de scrobbling auto-hébergé pour l'historique d'écoute musicale, tournant comme sauvegarde de Koito, le tracker principal des statistiques d'écoute, plutôt que comme une seconde source principale indépendante.
+Maloja est un tracker de scrobbling auto-hébergé pour l'historique d'écoute musicale, tournant comme sauvegarde de Koito, le tracker principal des statistiques d'écoute, plutôt que comme une seconde source principale indépendante. C'était autrefois le tracker principal, mais il ne compte que le nombre d'écoutes, pas la durée d'écoute, que Koito sait suivre et qui est aussi plus activement maintenu, d'où le changement. Maloja est conservé uniquement comme sauvegarde redondante et n'est en réalité jamais consulté.
 
-Ses données sont sauvegardées chaque nuit via le rôle `maloja_backup`, qui s'authentifie au backend Maloja et exporte l'historique de scrobbling vers deux NAS. Le rôle `maloja_import_backup` gère la restauration depuis l'un de ces exports si Maloja devait être réinstallé.
+Ses données sont sauvegardées chaque nuit en reprenant la même logique que le rôle `maloja_backup` : authentification auprès de l'API backend de Maloja (`POST /auth/authenticate`, distinct de la connexion à l'interface web) et export de l'historique complet de scrobbling depuis `/apis/mlj_1/export` vers les deux NAS, en conservant uniquement les 5 sauvegardes les plus récentes. Comme pour Koito, l'exécution nocturne est un script shell autonome déployé par `cron_configuration`, car cron ne peut pas fournir le mot de passe `become` interactif dont Ansible a besoin. Le rôle `maloja_backup` reste utile pour lancer la même sauvegarde manuellement, à la demande.
+
+La restauration a son propre rôle, `maloja_import_backup` : il sélectionne automatiquement l'export le plus récent, le dépose dans le répertoire d'import du conteneur, redémarre le conteneur pour déclencher l'import, puis surveille les logs pendant jusqu'à 10 minutes en attendant la fin de l'opération. Maloja ignore lui-même les scrobbles déjà présents dans la base, donc réimporter ne crée jamais de doublons.

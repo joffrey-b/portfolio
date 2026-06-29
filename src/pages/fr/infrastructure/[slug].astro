@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { item } = Astro.props;
-const { name, type, subtitle, description, specs, icon, screenshots, relatedRoles } = item.data;
+const { name, type, subtitle, description, specs, icon, openSource, screenshots, relatedRoles } = item.data;
 const { Content } = await item.render();
 
 const allRoles = await getCollection('roles-fr');
@@ -50,7 +50,21 @@ const typeLabel = type === 'hardware' ? 'Matériel' : 'Service';
               )}
               <div>
                 <h1 class="text-3xl font-bold text-slate-100">{name}</h1>
-                <p class="text-sky-400 font-medium">{subtitle}</p>
+                <div class="flex items-center gap-2 flex-wrap mt-0.5">
+                  <p class="text-sky-400 font-medium">{subtitle}</p>
+                  {openSource !== undefined && (
+                    <span
+                      class:list={[
+                        "inline-flex items-center rounded-full font-medium text-xs px-2.5 py-0.5 ring-1",
+                        openSource
+                          ? "bg-emerald-500/10 text-emerald-400 ring-emerald-500/30"
+                          : "bg-slate-500/10 text-slate-400 ring-slate-500/30",
+                      ]}
+                    >
+                      {openSource ? "Open Source" : "Propriétaire"}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
             <p class="text-slate-400 text-lg leading-relaxed mt-3">{description}</p>

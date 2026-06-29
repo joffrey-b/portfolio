@@ -10,11 +10,12 @@ icon: "M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c
 screenshots:
   - caption: "Nextcloud file browser"
     image: "./images/nextcloud_folders.png"
+openSource: true
 relatedRoles: ["docker_install", "docker_compositor", "docker_data_backup"]
 ---
 
 Nextcloud provides self-hosted file sync and storage, used as a personal cloud drive across desktop and mobile, an alternative to keeping files in a third-party cloud service.
 
-I don't use it as my main storage, I mainly use it for calendar and for the files I attach to events.
+I don't use it as my main storage, that lives on the NASes instead. Day to day it's mainly my calendar and contacts app, kept here instead of relying on Google for either; the only files that end up in it are the ones I attach to calendar events, mostly concert and train tickets.
 
 It runs through the generic Compose stack; the underlying Docker volume data is covered by `docker_data_backup` rather than a Nextcloud-specific role.

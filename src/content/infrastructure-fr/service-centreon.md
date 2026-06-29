@@ -12,9 +12,12 @@ screenshots:
     image: "./images/centreon_resources_status.png"
   - caption: "Graphique d'utilisation CPU"
     image: "./images/centreon_cpu_usage_chart.png"
+openSource: true
 relatedRoles: ["centreon_clapi_backup", "centreon_clapi_restore", "deploy_system_monitoring", "system_update", "postfix"]
 ---
 
-Centreon est la plateforme de supervision open-source gérant les contrôles de santé au niveau des services et des hôtes dans tout le homelab via SNMP, distincte des métriques time-series de Grafana : il s'agit ici de savoir si un service est actif, pas de sa tendance, même s'il existe quelques graphiques dans Centreon.
+Centreon est la plateforme de supervision open-source gérant les contrôles de santé au niveau des services et des hôtes dans tout le homelab via SNMP, avec NRPE utilisé sur quelques hôtes où un contrôle doit exécuter un script directement sur la machine distante. Ceci est distinct des métriques time-series de Grafana : il s'agit ici de savoir si un service est actif, pas de sa tendance, même s'il existe aussi quelques graphiques dans Centreon.
 
-Sa configuration est gérée et restaurable via son interface CLAPI, et elle s'intègre directement avec d'autres rôles : `system_update` planifie des plages de maintenance avant de redémarrer un hôte pour qu'une maintenance planifiée ne déclenche jamais de fausse alerte. D'autres rôles déclenchent aussi des plages de maintenance dans Centreon quand nécessaire (par exemple les sauvegardes Docker, car elles arrêtent tous les conteneurs).
+Il envoie des alertes par e-mail via Postfix, lui-même installé et configuré par son propre rôle Ansible, à la fois quand un contrôle passe en défaut et quand il revient à la normale.
+
+Sa configuration est gérée et restaurable via son interface CLAPI, et elle s'intègre directement avec d'autres rôles : `system_update` planifie des plages de maintenance avant de redémarrer un hôte pour qu'une maintenance planifiée ne déclenche jamais de fausse alerte, et tout rôle qui arrête volontairement un hôte ou un service, comme les sauvegardes Docker qui arrêtent tous les conteneurs, crée d'abord une plage de maintenance correspondante. En plus de ces plages ponctuelles, une plage récurrente est configurée chaque nuit pour que les sauvegardes nocturnes ne déclenchent pas non plus d'alertes.

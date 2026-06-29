@@ -12,9 +12,10 @@ screenshots:
     image: "./images/ara_playbook_run_history.png"
   - caption: "Playbook result detailed view"
     image: "./images/ara_playbook_run_detailed_view.png"
+openSource: true
 relatedRoles: ["docker_install", "docker_compositor"]
 ---
 
-ARA Records Ansible records every Ansible playbook run across the homelab, every task, every host, every changed, failed, or ok result, into a searchable web UI and API. It's the audit trail behind the "everything as code" approach: when something changes, ARA shows exactly which playbook run did it and what else happened during that run.
+ARA Records Ansible records every Ansible playbook run across the homelab, every task, every host, every changed, failed, or ok result, into a searchable web UI and API. It's the audit trail behind the "everything as code" approach: when something changes, ARA shows exactly which playbook run did it and what else happened during that run. It also doubles as a quick way to check when a playbook last ran and what its output was, without digging through terminal scrollback.
 
 It runs as a small API and UI pair in the Docker stack, deployed through the generic Compose roles rather than a dedicated role of its own.

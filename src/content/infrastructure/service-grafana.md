@@ -14,9 +14,20 @@ screenshots:
     image: "./images/grafana_network_detail.png"
   - caption: "Alert rules configuration"
     image: "./images/grafana_alert_rules.png"
+openSource: true
 relatedRoles: ["grafana_install", "grafana_datasource_create", "grafana_dashboards_backup", "grafana_dashboards_restore", "grafana_alerts_backup"]
 ---
 
-Grafana is the visualization layer for every time-series metric collected in the homelab, querying InfluxDB and rendering it as dashboards for CPU, memory, disk, network, and service-specific panels. Telegraf agents running on every Linux host ship their metrics into InfluxDB; the Synology NAS is the one exception, it has no agent of its own, so it exposes its metrics over SNMP instead, and Grafana queries that data directly.
+Grafana is the visualization layer for every time-series metric collected in the homelab, querying InfluxDB and rendering it as dashboards for CPU, memory, disk, network, and service-specific panels. Telegraf agents installed on every machine, Linux and Windows alike, ship their metrics into InfluxDB; the Synology NAS is the one exception, it has no agent of its own, so it exposes its metrics over SNMP instead, and Telegraf polls that data rather than Grafana querying it directly.
 
-Dashboards and alert rules are backed up via Grafana's own API on a schedule, and datasources are provisioned through Ansible rather than clicked together by hand, so a fresh Grafana instance can be restored anytime. Dashboards, alerts, and Grafana's configuration file are also provisioned through Ansible.
+A handful of dashboards cover most of what's worth watching day to day:
+
+- **Docker**: per-container CPU, RAM, and network activity
+- **Global system**: every standard host metric, CPU, RAM, processes, storage, network, kernel I/O, in one place
+- **Koito music stats**: pulled from Koito's own API, for visualizing listening history
+- **OPNsense, Firewall**: the usual system metrics plus a detailed breakdown of network usage per VLAN
+- **Proxmox**: host metrics alongside per-VM/LXC detail and storage usage
+- **Synology**: SNMP-only data, internal alerts like power, fan, and RAID status, plus disk health, usage, and temperature
+- **Windows metrics**: the Windows equivalent of the global system dashboard, disk usage, network throughput, and detailed process graphs
+
+Dashboards and alert rules are backed up via Grafana's own API, run by hand with the `grafana_dashboards_backup` and `grafana_alerts_backup` roles rather than on a schedule, and datasources are provisioned through Ansible rather than clicked together by hand, so a fresh Grafana instance can be restored anytime. Dashboards, alerts, and Grafana's configuration file are also provisioned through Ansible.

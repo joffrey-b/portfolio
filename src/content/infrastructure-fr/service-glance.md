@@ -10,9 +10,10 @@ icon: "M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9
 screenshots:
   - caption: "Page d'accueil du tableau de bord Glance"
     image: "./images/glance_dashboard.png"
+openSource: true
 relatedRoles: ["docker_install", "docker_compositor"]
 ---
 
-Glance est un tableau de bord auto-hébergé sur une seule page, regroupant liens, statuts de services et flux RSS, le genre de page d'accueil qui met chaque autre service auto-hébergé à un clic plutôt qu'une rangée de favoris dans le navigateur.
+Glance est un tableau de bord auto-hébergé sur une seule page, regroupant liens, statuts de services et flux RSS, le genre de page d'accueil qui met chaque autre service auto-hébergé à un clic plutôt qu'une rangée de favoris dans le navigateur. Il est rarement consulté pour l'aspect statut en particulier, puisque Centreon envoie déjà un e-mail dès que quelque chose va vraiment mal.
 
 Il tourne via la stack Compose générique ; sa configuration tient dans un seul fichier YAML, assez simple pour ne pas nécessiter son propre rôle Ansible.

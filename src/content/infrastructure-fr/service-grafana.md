@@ -14,9 +14,20 @@ screenshots:
     image: "./images/grafana_network_detail.png"
   - caption: "Configuration des règles d'alerte"
     image: "./images/grafana_alert_rules.png"
+openSource: true
 relatedRoles: ["grafana_install", "grafana_datasource_create", "grafana_dashboards_backup", "grafana_dashboards_restore", "grafana_alerts_backup"]
 ---
 
-Grafana est la couche de visualisation pour chaque métrique time-series collectée dans le homelab, interrogeant InfluxDB et la rendant sous forme de tableaux de bord pour le CPU, la mémoire, le disque, le réseau et les panneaux spécifiques à chaque service. Les agents Telegraf tournant sur chaque hôte Linux envoient leurs métriques vers InfluxDB ; le NAS Synology est la seule exception, il n'a pas d'agent propre, il expose donc ses métriques via SNMP, et Grafana va chercher ces données directement.
+Grafana est la couche de visualisation pour chaque métrique time-series collectée dans le homelab, interrogeant InfluxDB et la rendant sous forme de tableaux de bord pour le CPU, la mémoire, le disque, le réseau et les panneaux spécifiques à chaque service. Les agents Telegraf installés sur chaque machine, Linux comme Windows, envoient leurs métriques vers InfluxDB ; le NAS Synology est la seule exception, il n'a pas d'agent propre, il expose donc ses métriques via SNMP, et c'est Telegraf qui va chercher ces données plutôt que Grafana directement.
 
-Les tableaux de bord et règles d'alerte sont sauvegardés via l'API propre de Grafana selon un planning, et les sources de données sont provisionnées via Ansible plutôt que configurées à la main, si bien qu'une nouvelle instance Grafana peut être restaurée à tout moment. Les tableaux de bord, les alertes et le fichier de configuration de Grafana sont eux aussi provisionnés via Ansible.
+Une poignée de tableaux de bord couvre l'essentiel de ce qui vaut la peine d'être surveillé au quotidien :
+
+- **Docker** : CPU, RAM et activité réseau par conteneur
+- **Système global** : toutes les métriques système standard, CPU, RAM, processus, stockage, réseau, I/O kernel, au même endroit
+- **Statistiques musicales Koito** : récupérées depuis l'API de Koito, pour visualiser l'historique d'écoute
+- **OPNsense, Pare-feu** : les métriques système habituelles plus un détail de l'usage réseau par VLAN
+- **Proxmox** : métriques de l'hôte ainsi que le détail par VM/conteneur LXC et l'usage du stockage
+- **Synology** : données uniquement via SNMP, alertes internes comme l'état de l'alimentation, des ventilateurs et du RAID, plus la santé, l'usage et la température des disques
+- **Métriques Windows** : l'équivalent Windows du tableau de bord système global, usage disque, débit réseau et graphiques détaillés des processus
+
+Les tableaux de bord et règles d'alerte sont sauvegardés via l'API propre de Grafana, lancés manuellement avec les rôles `grafana_dashboards_backup` et `grafana_alerts_backup` plutôt que selon un planning, et les sources de données sont provisionnées via Ansible plutôt que configurées à la main, si bien qu'une nouvelle instance Grafana peut être restaurée à tout moment. Les tableaux de bord, les alertes et le fichier de configuration de Grafana sont eux aussi provisionnés via Ansible.

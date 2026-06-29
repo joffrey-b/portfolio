@@ -12,9 +12,10 @@ screenshots:
     image: "./images/mealie_recipe_example.png"
   - caption: "Liste de courses"
     image: "./images/mealie_shopping_list.png"
+openSource: true
 relatedRoles: ["docker_install", "docker_compositor", "docker_data_backup"]
 ---
 
-Mealie est un gestionnaire de recettes et planificateur de repas auto-hébergé, utilisé pour garder les recettes recherchables et partageables plutôt qu'éparpillées entre favoris du navigateur et captures d'écran.
+Mealie est un gestionnaire de recettes et planificateur de repas auto-hébergé, utilisé pour garder les recettes recherchables et partageables plutôt qu'éparpillées entre favoris du navigateur et captures d'écran, et pour centraliser les listes de courses. Il propose aussi une API assez complète, même si l'usage quotidien ne va pas au-delà des recettes et des listes de courses.
 
 Il tourne via la stack Compose générique ; les données du volume Docker sous-jacent sont couvertes par `docker_data_backup` plutôt qu'un rôle spécifique aux recettes.

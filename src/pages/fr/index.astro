@@ -157,8 +157,8 @@ const techStack = [
             <p class="text-slate-400 text-sm leading-relaxed">
               Synology DS418 avec 4×3 To comme NAS principal. Un Proxmox Backup Server dédié
               exécute des sauvegardes chiffrées des VMs chaque nuit. Une VM OpenMediaVault agit
-              comme cible redondante secondaire. Toutes les tâches de sauvegarde sont automatisées
-              et gérées en tant que code.
+              comme cible redondante secondaire. Chaque tâche de sauvegarde passe par un rôle
+              Ansible, géré en tant que code plutôt que par un script manuel.
             </p>
           </div>
           <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">

@@ -12,11 +12,12 @@ screenshots:
     image: "./images/pbs_datastore_overview.png"
   - caption: "Statut des sauvegardes"
     image: "./images/pbs_backups.png"
+openSource: true
 relatedRoles: ["cron_configuration", "system_update"]
 ---
 
-Proxmox Backup Server est le pendant logiciel du matériel de sauvegarde dédié sur lequel il tourne, une solution de sauvegarde open-source conçue pour Proxmox VE, gérant déduplication, sauvegardes incrémentales et chiffrement côté client nativement.
+Proxmox Backup Server est le pendant logiciel du matériel de sauvegarde dédié sur lequel il tourne, développé par l'équipe Proxmox elle-même plutôt que par un tiers, ce qui lui permet de s'intégrer étroitement à Proxmox VE : déduplication, sauvegardes incrémentales et chiffrement côté client fonctionnent nativement.
 
-Il s'allume via le BIOS avant les sauvegardes quotidiennes, et s'éteint une fois les sauvegardes terminées. Cela permet d'économiser de l'électricité.
+Il s'allume via le BIOS avant les sauvegardes nocturnes, et une tâche cron l'éteint une fois celles-ci terminées, si bien que la machine ne consomme de l'électricité que lorsque c'est réellement nécessaire. Une passe de vérification s'exécute chaque jour pour confirmer que les sauvegardes ne sont pas corrompues.
 
 Sa propre interface web couvre la gestion des datastores et la vérification des sauvegardes ; la planification du moment où son stockage est monté dans Proxmox est gérée par le rôle `cron_configuration` plutôt que par PBS lui-même.

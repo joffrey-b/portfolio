@@ -10,9 +10,12 @@ icon: "M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M
 screenshots:
   - caption: "Liste des hôtes proxy de Nginx Proxy Manager"
     image: "./images/npm_hosts.png"
+openSource: true
 relatedRoles: ["docker_install", "docker_compositor"]
 ---
 
-Nginx Proxy Manager se place devant chaque application auto-hébergée de l'hôte Docker, routant le domaine de chacune vers le bon conteneur et gérant la terminaison SSL avec des certificats Let's Encrypt, tout cela via sa propre interface web plutôt que des fichiers de configuration Nginx écrits à la main.
+Nginx Proxy Manager est le seul conteneur de l'hôte Docker à avoir un port exposé, le 443. Chaque autre conteneur exécutant un service se trouve derrière lui en tant qu'hôte proxy, chacun avec son propre certificat dédié, ce qui permet d'ajouter ou de retirer des hôtes à la volée, tout cela via sa propre interface web plutôt que des fichiers de configuration Nginx écrits à la main. Rien d'autre sur l'hôte n'est directement accessible, ce qui réduit la surface d'attaque à ce seul conteneur.
+
+Les certificats sont signés par la CA interne d'OPNsense plutôt que par une autorité publique comme Let's Encrypt, puisque ces services ne sont pas exposés à internet. Cette CA est approuvée sur chaque appareil personnel, donc les navigateurs affichent quand même un certificat valide sans avertissement.
 
 Il fait aussi office de proxy pour l'interface web de Frigate sur son serveur dédié, configuré de la même façon via sa propre instance là-bas. Déployé via la stack Compose générique plutôt qu'un rôle dédié, puisque les hôtes proxy et les certificats sont gérés à la main via l'interface sur les deux instances.

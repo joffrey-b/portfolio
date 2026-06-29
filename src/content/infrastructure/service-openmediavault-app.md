@@ -12,9 +12,10 @@ screenshots:
     image: "./images/omv_dashboard.png"
   - caption: "Shared folder configuration"
     image: "./images/omv_shared_folders.png"
+openSource: true
 relatedRoles: ["nas_mount", "nas_mount_systemd", "docker_data_backup"]
 ---
 
-OpenMediaVault is the open-source NAS operating system running as a dedicated Proxmox VM, providing a redundant secondary backup target alongside the physical Synology NAS. Its own web UI handles storage pool and share management.
+OpenMediaVault is the open-source NAS operating system running as a dedicated Proxmox VM, providing a redundant secondary backup target alongside the physical Synology NAS. A 6TB encrypted drive is attached to it, holding the same important data and backups as the Synology. Its own web UI handles storage pool and share management, and like the Synology, it exposes Samba shares that get mounted over CIFS from Linux and Windows machines.
 
 Being a VM rather than dedicated hardware means it also inherits Proxmox's own backup coverage, on top of the data it stores for everything else.
