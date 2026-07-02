@@ -37,7 +37,7 @@ This role manages firewall rule categories on OPNsense via the REST API. Categor
 **Category definition fields:**
 
 | Field | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `name` | Category name (unique identifier) |
 | `color` | Hex color code without `#` |
 | `auto` | Auto-assign rules matching category name |

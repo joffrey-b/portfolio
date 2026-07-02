@@ -52,7 +52,7 @@ This role deploys SSL/TLS certificates and private keys from Ansible Vault encry
 **Certificate definition fields:**
 
 | Field | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `cert_content` | Certificate PEM content (from vault) |
 | `cert_path` | Destination path |
 | `key_content` | Private key PEM content (from vault) |

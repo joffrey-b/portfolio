@@ -51,7 +51,7 @@ This role manages CIFS/SMB network share mounting from NAS devices. It installs 
 **Mount definition fields:**
 
 | Field | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `name` | Unique identifier for this mount |
 | `server` | NAS IP address or hostname |
 | `share` | Share path on NAS |

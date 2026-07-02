@@ -41,7 +41,7 @@ Ce rôle gère les certificats SSL/TLS sur OPNsense via l'API REST. Il assure un
 **Champs de définition du certificat :**
 
 | Champ | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `descr` | Description du certificat (utilisée comme identifiant unique) |
 | `commonname` | Nom commun (CN) du certificat |
 | `altnames_dns` | Noms alternatifs DNS (Subject Alternative Names, chaîne multiligne) |

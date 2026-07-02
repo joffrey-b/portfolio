@@ -34,7 +34,7 @@ This role manages KEA DHCPv4 subnets with full CRUD operations (Create, Read, Up
 **Subnet definition fields:**
 
 | Field | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `subnet` | Subnet CIDR |
 | `pools` | IP range |
 | `description` | Subnet description |

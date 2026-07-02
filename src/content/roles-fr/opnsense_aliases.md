@@ -40,7 +40,7 @@ Ce rôle crée et gère les alias de pare-feu sur OPNsense via l'API REST. Les a
 **Champs de définition de l'alias :**
 
 | Champ | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `name` | Nom de l'alias (sans espaces, utiliser le tiret bas) |
 | `type` | `host`, `network`, `port` ou `url` |
 | `content` | Liste d'IPs/réseaux/ports |

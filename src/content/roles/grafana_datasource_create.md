@@ -37,7 +37,7 @@ This role creates InfluxDB datasources in Grafana using the Grafana HTTP API. It
 **Datasource definition fields:**
 
 | Field | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `name` | Display name in Grafana UI |
 | `uid` | Unique identifier for dashboard references |
 | `url` | InfluxDB HTTP API URL |

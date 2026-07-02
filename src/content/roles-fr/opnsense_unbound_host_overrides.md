@@ -31,7 +31,7 @@ Ce rôle gère les redirections d'hôtes DNS (enregistrements DNS locaux) dans l
 **Champs de définition de la redirection :**
 
 | Champ | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `hostname` | Nom d'hôte |
 | `domain` | Partie du domaine |
 | `server` | Adresse IP de résolution |

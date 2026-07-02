@@ -48,7 +48,7 @@ This role manages firewall rules across multiple network interfaces on OPNsense 
 **Rule definition fields:**
 
 | Field | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `sequence` | Unique number per interface (idempotency key) |
 | `action` | `pass`, `block`, or `reject` |
 | `interface` | Interface name |

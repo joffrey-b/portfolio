@@ -36,7 +36,7 @@ Ce rôle gère les réservations statiques KEA DHCPv4 (mappings MAC → IP) avec
 **Champs de définition de la réservation :**
 
 | Champ | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `subnet` | CIDR du sous-réseau (doit correspondre à un sous-réseau existant) |
 | `ip_address` | Adresse IP statique à assigner |
 | `hw_address` | Adresse MAC (minuscules, séparée par des deux-points) |

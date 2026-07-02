@@ -45,7 +45,7 @@ zoneminder_monitors_defaults:
 **Camera definition fields:**
 
 | Field | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `name` | Display name (used for duplicate detection) |
 | `path` | Full RTSP URL including credentials |
 | `width` | Video width in pixels |

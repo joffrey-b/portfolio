@@ -43,7 +43,7 @@ This role manages CIFS/SMB network share mounting using systemd mount units inst
 **Mount definition fields:**
 
 | Field | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `name` | Unique identifier for mount |
 | `server` | NAS IP address or hostname |
 | `share` | Share path on NAS |

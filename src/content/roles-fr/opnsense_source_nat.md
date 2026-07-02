@@ -35,7 +35,7 @@ Ce rôle crée et gère les règles NAT sortant (Source NAT/SNAT) sur OPNsense v
 **Champs de définition de la règle :**
 
 | Champ | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `sequence` | Numéro de séquence de la règle (utilisé comme clé d'idempotence) |
 | `interface` | Interface de sortie (généralement `wan`) |
 | `source_net` | Réseau source (CIDR ou alias) |

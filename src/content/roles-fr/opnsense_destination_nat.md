@@ -31,7 +31,7 @@ Ce rôle gère les règles de NAT de destination (redirection de ports) sur OPNs
 **Champs de définition de la règle :**
 
 | Champ | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `sequence` | Numéro unique pour l'idempotence (doit être unique) |
 | `interface` | Interface d'entrée |
 | `destination_port` | Port externe à intercepter |

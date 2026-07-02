@@ -31,7 +31,7 @@ This role manages DNS host overrides (local DNS records) in OPNsense Unbound res
 **Override definition fields:**
 
 | Field | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `hostname` | Hostname |
 | `domain` | Domain portion |
 | `server` | IP address to resolve to |

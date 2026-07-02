@@ -45,7 +45,7 @@ zoneminder_monitors_defaults:
 **Champs de définition de la caméra :**
 
 | Champ | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `name` | Nom d'affichage (utilisé pour la détection des doublons) |
 | `path` | URL RTSP complète incluant les identifiants |
 | `width` | Largeur vidéo en pixels |

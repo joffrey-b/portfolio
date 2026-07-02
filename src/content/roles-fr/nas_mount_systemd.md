@@ -43,7 +43,7 @@ Ce rôle gère le montage de partages réseau CIFS/SMB via des unités mount sys
 **Champs de définition du montage :**
 
 | Champ | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `name` | Identifiant unique pour le montage |
 | `server` | Adresse IP ou nom d'hôte du NAS |
 | `share` | Chemin du partage sur le NAS |

@@ -31,7 +31,7 @@ This role manages Destination NAT (port forwarding) rules on OPNsense via the RE
 **Rule definition fields:**
 
 | Field | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `sequence` | Unique number for idempotency (must be unique) |
 | `interface` | Incoming interface |
 | `destination_port` | External port to match |

@@ -48,7 +48,7 @@ Ce rôle gère les règles de pare-feu sur plusieurs interfaces réseau sur OPNs
 **Champs de définition de la règle :**
 
 | Champ | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `sequence` | Numéro unique par interface (clé d'idempotence) |
 | `action` | `pass`, `block` ou `reject` |
 | `interface` | Nom de l'interface |

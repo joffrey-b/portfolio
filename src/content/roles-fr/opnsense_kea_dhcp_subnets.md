@@ -34,7 +34,7 @@ Ce rôle gère les sous-réseaux KEA DHCPv4 avec des opérations CRUD complètes
 **Champs de définition du sous-réseau :**
 
 | Champ | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `subnet` | CIDR du sous-réseau |
 | `pools` | Plage d'adresses IP |
 | `description` | Description du sous-réseau |

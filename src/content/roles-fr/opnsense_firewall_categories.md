@@ -37,7 +37,7 @@ Ce rôle gère les catégories de règles de pare-feu sur OPNsense via l'API RES
 **Champs de définition de la catégorie :**
 
 | Champ | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `name` | Nom de la catégorie (identifiant unique) |
 | `color` | Code couleur hexadécimal sans `#` |
 | `auto` | Attribution automatique des règles correspondant au nom de catégorie |

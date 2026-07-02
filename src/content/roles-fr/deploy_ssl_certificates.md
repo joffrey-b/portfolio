@@ -52,7 +52,7 @@ Ce rôle déploie des certificats SSL/TLS et des clés privées depuis des varia
 **Champs de définition du certificat :**
 
 | Champ | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `cert_content` | Contenu du certificat PEM (depuis le vault) |
 | `cert_path` | Chemin de destination |
 | `key_content` | Contenu de la clé privée PEM (depuis le vault) |

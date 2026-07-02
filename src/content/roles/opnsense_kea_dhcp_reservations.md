@@ -36,7 +36,7 @@ This role manages KEA DHCPv4 static reservations (MAC → IP mappings) with full
 **Reservation definition fields:**
 
 | Field | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `subnet` | Subnet CIDR (must match existing subnet) |
 | `ip_address` | Static IP to assign |
 | `hw_address` | MAC address (lowercase, colon-separated) |

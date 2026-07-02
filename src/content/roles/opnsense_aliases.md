@@ -40,7 +40,7 @@ This role creates and manages firewall aliases on OPNsense via the REST API. Ali
 **Alias definition fields:**
 
 | Field | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `name` | Alias name (no spaces, use underscore) |
 | `type` | `host`, `network`, `port`, or `url` |
 | `content` | List of IPs/networks/ports |

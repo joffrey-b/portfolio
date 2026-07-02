@@ -35,7 +35,7 @@ This role creates and manages outbound NAT (Source NAT/SNAT) rules on OPNsense v
 **Rule definition fields:**
 
 | Field | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `sequence` | Rule sequence number (used as idempotency key) |
 | `interface` | Outbound interface (usually `wan`) |
 | `source_net` | Source network (CIDR or alias) |

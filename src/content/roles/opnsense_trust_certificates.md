@@ -41,7 +41,7 @@ This role manages SSL/TLS certificates on OPNsense via the REST API. It provides
 **Certificate definition fields:**
 
 | Field | Description |
-|-------|----------|-------------|
+|-------|-------------|
 | `descr` | Certificate description (used as unique identifier) |
 | `commonname` | Certificate Common Name (CN) |
 | `altnames_dns` | DNS Subject Alternative Names (multi-line string) |
